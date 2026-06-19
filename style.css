@@ -1,0 +1,535 @@
+/* ================================
+   RESET
+================================ */
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+html {
+    scroll-behavior: smooth;
+}
+
+/* ================================
+   VARIÁVEIS (cores e fontes)
+================================ */
+
+:root {
+    /* Paleta extraida da foto "imperio-salgados.jfif" */
+    --cor-primaria: #C8842E;
+    /* dourado torrado - casca dos salgados fritos */
+    --cor-secundaria: #E0A85C;
+    /* dourado mais claro - destaque/hover */
+    --cor-fundo: #FBF6EC;
+    /* creme bem claro - fundo geral da pagina */
+    --cor-fundo-secao: #F3E6CE;
+    /* bege - diferencia secoes do fundo geral */
+    --cor-texto: #3A2614;
+    /* marrom escuro quase preto - texto principal */
+    --cor-texto-suave: #7A6651;
+    /* marrom acinzentado - texto secundario */
+    --cor-branco: #FFFFFF;
+
+    --fonte: 'Poppins', sans-serif;
+
+    --sombra: 0 4px 20px rgba(122, 74, 34, 0.15);
+    --raio: 14px;
+    --transicao: 0.3s ease;
+}
+
+/* ================================
+   BASE
+================================ */
+
+body {
+    font-family: var(--fonte);
+    background-color: var(--cor-fundo);
+    color: var(--cor-texto);
+    line-height: 1.6;
+}
+
+a {
+    text-decoration: none;
+    color: inherit;
+}
+
+/* ================================
+   CABEÇALHO
+================================ */
+
+.cabecalho {
+    position: sticky;
+    top: 0;
+    z-index: 100;
+    background-color: var(--cor-branco);
+    border-bottom: 1px solid rgba(232, 82, 26, 0.15);
+    position: relative;
+}
+
+.cabecalho-container {
+    width: 90%;
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 18px 0;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.cabecalho-logo {
+    display: flex;
+    align-items: center;
+}
+
+.logo-imagem {
+    height: 100px;
+    width: auto;
+    display: block;
+}
+
+/* ================================
+   NAVEGAÇÃO
+================================ */
+
+.nav {
+    display: flex;
+    flex-direction: column;
+    gap: 0;
+    position: absolute;
+    top: 100%;
+    left: 0;
+    width: 100%;
+    background-color: var(--cor-branco);
+    border-top: 1px solid rgba(232, 82, 26, 0.1);
+    padding: 0;
+
+    /* Animação de entrada */
+    max-height: 0;
+    overflow: hidden;
+    transition: max-height 0.35s ease, padding 0.35s ease;
+}
+
+.nav.nav-aberto {
+    max-height: 300px;
+    padding: 10px 0;
+}
+
+.nav-link {
+    padding: 14px 5%;
+    font-size: 0.95rem;
+    color: var(--cor-texto);
+    transition: var(--transicao);
+    border-bottom: 1px solid rgba(0, 0, 0, 0.05);
+}
+
+.nav-link:hover {
+    color: var(--cor-primaria);
+    padding-left: 7%;
+}
+
+/* ================================
+   BOTÃO HAMBÚRGUER
+================================ */
+
+.hamburger-btn {
+    background: none;
+    border: none;
+    cursor: pointer;
+    display: flex;
+    flex-direction: column;
+    gap: 5px;
+    padding: 5px;
+}
+
+.hamburger-linha {
+    display: block;
+    width: 24px;
+    height: 2.5px;
+    background-color: var(--cor-primaria);
+    border-radius: 3px;
+    transition: var(--transicao);
+}
+
+/* ================================
+   HERO
+================================ */
+
+.hero {
+    min-height: 90vh;
+    background: linear-gradient(135deg, #FFF4EC 0%, #FDFAF7 100%);
+    display: flex;
+    align-items: center;
+    padding: 80px 5%;
+}
+
+.hero-conteudo {
+    max-width: 600px;
+}
+
+.hero-subtitulo {
+    font-size: 0.85rem;
+    font-weight: 500;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+    color: var(--cor-primaria);
+    margin-bottom: 12px;
+}
+
+.hero-titulo {
+    font-size: 2.4rem;
+    font-weight: 700;
+    line-height: 1.2;
+    margin-bottom: 16px;
+    color: var(--cor-texto);
+}
+
+.hero-destaque {
+    color: var(--cor-primaria);
+}
+
+.hero-descricao {
+    font-size: 1rem;
+    color: var(--cor-texto-suave);
+    margin-bottom: 30px;
+    max-width: 480px;
+}
+
+.hero-botoes {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 12px;
+}
+
+/* ================================
+   BOTÕES
+================================ */
+
+.btn-primario {
+    padding: 14px 28px;
+    background-color: var(--cor-primaria);
+    color: var(--cor-branco);
+    border-radius: 50px;
+    font-size: 0.95rem;
+    font-weight: 600;
+    transition: var(--transicao);
+}
+
+.btn-primario:hover {
+    background-color: #c94414;
+    transform: translateY(-2px);
+    box-shadow: var(--sombra);
+}
+
+.btn-secundario {
+    padding: 14px 28px;
+    background-color: transparent;
+    color: var(--cor-primaria);
+    border: 2px solid var(--cor-primaria);
+    border-radius: 50px;
+    font-size: 0.95rem;
+    font-weight: 600;
+    transition: var(--transicao);
+}
+
+.btn-secundario:hover {
+    background-color: var(--cor-primaria);
+    color: var(--cor-branco);
+    transform: translateY(-2px);
+}
+
+/* ================================
+   SEÇÃO — ESTILOS COMPARTILHADOS
+================================ */
+
+.secao-container {
+    width: 90%;
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 80px 0;
+}
+
+.secao-cabecalho {
+    text-align: center;
+    margin-bottom: 40px;
+}
+
+.secao-label {
+    font-size: 0.8rem;
+    font-weight: 500;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+    color: var(--cor-primaria);
+    margin-bottom: 8px;
+}
+
+.secao-titulo {
+    font-size: 1.8rem;
+    font-weight: 700;
+    color: var(--cor-texto);
+}
+
+/* ================================
+   TICKER
+================================ */
+
+.ticker {
+    background-color: var(--cor-primaria);
+    padding: 12px 0;
+    overflow: hidden;
+    white-space: nowrap;
+}
+
+.ticker-faixa {
+    display: inline-flex;
+    gap: 48px;
+    animation: ticker-mover 30s linear infinite;
+}
+
+.ticker-faixa span {
+    font-size: 0.9rem;
+    font-weight: 500;
+    color: var(--cor-branco);
+    flex-shrink: 0;
+}
+
+@keyframes ticker-mover {
+    0% {
+        transform: translateX(0);
+    }
+
+    100% {
+        transform: translateX(-50%);
+    }
+}
+
+/* ================================
+   CARDÁPIO
+================================ */
+
+.cardapio {
+    background-color: var(--cor-branco);
+}
+
+.cardapio-grid {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 16px;
+}
+
+.prato-card {
+    display: flex;
+    align-items: flex-start;
+    gap: 16px;
+    padding: 20px;
+    background-color: var(--cor-fundo-secao);
+    border-radius: var(--raio);
+    border: 1px solid rgba(232, 82, 26, 0.1);
+    transition: var(--transicao);
+}
+
+.prato-card:hover {
+    transform: translateY(-4px);
+    box-shadow: 5px 5px 5px rgb(161, 161, 161);
+}
+
+.prato-imagem {
+    width: 80px;
+    height: 80px;
+    object-fit: cover;
+    border-radius: 12px;
+    flex-shrink: 0;
+}
+
+.prato-nome {
+    font-size: 1rem;
+    font-weight: 600;
+    color: var(--cor-texto);
+    margin-bottom: 4px;
+}
+
+.prato-descricao {
+    font-size: 0.88rem;
+    color: var(--cor-texto-suave);
+    margin-bottom: 8px;
+}
+
+.prato-preco {
+    font-size: 1rem;
+    font-weight: 700;
+    color: var(--cor-primaria);
+}
+
+/* ================================
+   SOBRE
+================================ */
+
+.sobre {
+    background-color: var(--cor-fundo-secao);
+}
+
+.sobre-texto {
+    font-size: 1rem;
+    color: var(--cor-texto-suave);
+    text-align: center;
+    max-width: 600px;
+    margin: 0 auto 40px;
+    line-height: 1.8;
+}
+
+.numeros-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 16px;
+}
+
+.numero-item {
+    text-align: center;
+    padding: 24px 16px;
+    background-color: var(--cor-branco);
+    border-radius: var(--raio);
+    border: 1px solid rgba(232, 82, 26, 0.1);
+}
+
+.numero-valor {
+    font-size: 2rem;
+    font-weight: 700;
+    color: var(--cor-primaria);
+    margin-bottom: 4px;
+}
+
+.numero-label {
+    font-size: 0.82rem;
+    color: var(--cor-texto-suave);
+}
+
+/* ================================
+   RODAPÉ / CONTATO
+================================ */
+
+.rodape {
+    background-color: var(--cor-texto);
+    color: var(--cor-branco);
+}
+
+.rodape-titulo {
+    font-size: 1.6rem;
+    font-weight: 700;
+    text-align: center;
+    margin-bottom: 36px;
+}
+
+.contato-grid {
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+    margin-bottom: 40px;
+}
+
+.contato-item {
+    display: flex;
+    align-items: center;
+    gap: 14px;
+    padding: 16px 20px;
+    background-color: rgba(255, 255, 255, 0.06);
+    border-radius: var(--raio);
+    border: 1px solid rgba(255, 255, 255, 0.08);
+}
+
+.contato-icone {
+    font-size: 1.4rem;
+    flex-shrink: 0;
+}
+
+.contato-texto {
+    font-size: 0.95rem;
+    color: rgba(255, 255, 255, 0.75);
+}
+
+.contato-link {
+    font-size: 0.95rem;
+    color: var(--cor-secundaria);
+    font-weight: 600;
+    transition: var(--transicao);
+}
+
+.contato-link:hover {
+    color: var(--cor-branco);
+}
+
+.rodape-copy {
+    text-align: center;
+    font-size: 0.8rem;
+    color: rgba(255, 255, 255, 0.35);
+    padding-top: 24px;
+}
+
+/* ================================
+   TABLET — 768px+
+================================ */
+
+@media (min-width: 768px) {
+
+    .hamburger-btn {
+        display: none;
+    }
+
+    .nav {
+        display: flex !important;
+        flex-direction: row;
+        position: static;
+        width: auto;
+        border: none;
+        padding: 0;
+        gap: 32px;
+        max-height: none;
+        overflow: visible;
+    }
+
+    .nav-link {
+        padding: 0;
+        border: none;
+        font-size: 0.9rem;
+    }
+
+    .nav-link:hover {
+        padding-left: 0;
+        color: var(--cor-primaria);
+    }
+
+    .hero-titulo {
+        font-size: 3rem;
+    }
+
+    .cardapio-grid {
+        grid-template-columns: repeat(2, 1fr);
+    }
+
+    .contato-grid {
+        flex-direction: row;
+        flex-wrap: wrap;
+    }
+
+    .contato-item {
+        flex: 1;
+        min-width: 200px;
+    }
+
+}
+
+/* ================================
+   DESKTOP — 1024px+
+================================ */
+
+@media (min-width: 1024px) {
+
+    .hero-titulo {
+        font-size: 3.6rem;
+    }
+
+    .cardapio-grid {
+        grid-template-columns: repeat(2, 1fr);
+    }
+
+}

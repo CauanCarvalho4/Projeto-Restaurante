@@ -1,0 +1,258 @@
+<!doctype html>
+<html lang="pt-BR">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+    <!-- SEO -->
+    <meta
+      name="description"
+      content="Império Salgados, lanchonete em Caxias - MA"
+    />
+    <meta
+      name="keywords"
+      content="Salgados, Império, Lanches, Caxias, lanchonete, cardápio"
+    />
+    <meta name="author" content="Cauan Carvalho" />
+
+    <!-- Open Graph -->
+    <meta property="og:title" content="Sabor & Cia | Restaurante" />
+    <meta
+      property="og:description"
+      content="Comida caseira feita com amor e tempero de verdade."
+    />
+    <meta property="og:type" content="website" />
+
+    <title>Império Salgados</title>
+
+    <!-- Fonte -->
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap"
+      rel="stylesheet"
+    />
+
+    <!-- CSS externo -->
+    <link rel="stylesheet" href="style.css" />
+  </head>
+
+  <body>
+    <!-- ========== CABEÇALHO ========== -->
+    <header class="cabecalho">
+      <div class="cabecalho-container">
+        <!-- Logo substituída por imagem -->
+        <a href="#inicio" class="cabecalho-logo">
+          <img
+            src="img/imperio-salgados.jfif"
+            alt="Império Salgados"
+            class="logo-imagem"
+          />
+        </a>
+
+        <!-- Botão hambúrguer -->
+        <button class="hamburger-btn" id="hamburgerBtn" aria-label="Abrir menu">
+          <span class="hamburger-linha"></span>
+          <span class="hamburger-linha"></span>
+          <span class="hamburger-linha"></span>
+        </button>
+
+        <!-- Navegação -->
+        <nav class="nav" id="nav">
+          <a href="#inicio" class="nav-link">Início</a>
+          <a href="#cardapio" class="nav-link">Cardápio</a>
+          <a href="#sobre" class="nav-link">Sobre</a>
+          <a href="#contato" class="nav-link">Contato</a>
+        </nav>
+      </div>
+    </header>
+    <!-- ========== FIM CABEÇALHO ========== -->
+
+    <main>
+      <!-- ========== HERO ========== -->
+      <section id="inicio" class="hero">
+        <div class="hero-conteudo">
+          <p class="hero-subtitulo">Bem-vindo ao Império Salgados</p>
+          <h1 class="hero-titulo">
+            Sabores que <span class="hero-destaque">contam histórias</span>
+          </h1>
+          <p class="hero-descricao">
+            Comida caseira feita com amor, ingredientes frescos e tempero de
+            verdade.
+          </p>
+          <div class="hero-botoes">
+            <a href="#cardapio" class="btn-primario">Ver cardápio</a>
+            <a href="#contato" class="btn-secundario">Reservar mesa</a>
+          </div>
+        </div>
+      </section>
+      <!-- ========== FIM HERO ========== -->
+
+      <!-- ========== TICKER ========== -->
+      <div class="ticker">
+        <div class="ticker-faixa">
+          <span>🍝 Macarrão ao molho da casa</span>
+          <span>🍔 Burger artesanal especial</span>
+          <span>🍗 Frango grelhado completo</span>
+          <span>🥗 Salada especial da casa</span>
+          <span>⭐ Aberto de Seg a Sáb · 11h às 22h</span>
+          <span>📍 Rua das Flores, 123 — Centro</span>
+          <!-- Repetição para o loop ficar contínuo -->
+          <span>🍝 Macarrão ao molho da casa</span>
+          <span>🍔 Burger artesanal especial</span>
+          <span>🍗 Frango grelhado completo</span>
+          <span>🥗 Salada especial da casa</span>
+          <span>⭐ Aberto de Seg a Sáb · 11h às 22h</span>
+          <span>📍 Rua das Flores, 123 — Centro</span>
+        </div>
+      </div>
+      <!-- ========== FIM TICKER ========== -->
+
+      <!-- ========== CARDÁPIO ========== -->
+      <section id="cardapio" class="cardapio">
+        <div class="secao-container">
+          <div class="secao-cabecalho">
+            <p class="secao-label">O que servimos</p>
+            <h2 class="secao-titulo">Destaques do dia</h2>
+          </div>
+
+          <div class="cardapio-grid">
+            <article class="prato-card">
+              <img
+                src="img/macarrao.jpg"
+                alt="Macarrão ao molho da casa"
+                class="prato-imagem"
+              />
+              <div class="prato-info">
+                <h3 class="prato-nome">Macarrão ao molho da casa</h3>
+                <p class="prato-descricao">
+                  Macarrão artesanal com molho sugo encorpado e manjericão
+                  fresco.
+                </p>
+                <p class="prato-preco">R$ 28,90</p>
+              </div>
+            </article>
+
+            <article class="prato-card">
+              <img
+                src="img/burguer-artesanal.jpg"
+                alt="Burger artesanal especial"
+                class="prato-imagem"
+              />
+              <div class="prato-info">
+                <h3 class="prato-nome">Burger artesanal especial</h3>
+                <p class="prato-descricao">
+                  Blend da casa, queijo cheddar, alface, tomate e molho
+                  especial.
+                </p>
+                <p class="prato-preco">R$ 34,90</p>
+              </div>
+            </article>
+
+            <article class="prato-card">
+              <img
+                src="img/frango-grelhado.jpg"
+                alt="Frango grelhado completo"
+                class="prato-imagem"
+              />
+              <div class="prato-info">
+                <h3 class="prato-nome">Frango grelhado completo</h3>
+                <p class="prato-descricao">
+                  Filé grelhado com arroz, feijão, farofa e salada.
+                </p>
+                <p class="prato-preco">R$ 32,90</p>
+              </div>
+            </article>
+
+            <article class="prato-card">
+              <img
+                src="img/salada-verde.jpg"
+                alt="Salada especial da casa"
+                class="prato-imagem"
+              />
+              <div class="prato-info">
+                <h3 class="prato-nome">Salada especial da casa</h3>
+                <p class="prato-descricao">
+                  Mix de folhas, tomate cereja, pepino e molho de limão.
+                </p>
+                <p class="prato-preco">R$ 18,90</p>
+              </div>
+            </article>
+          </div>
+        </div>
+      </section>
+      <!-- ========== FIM CARDÁPIO ========== -->
+
+      <!-- ========== SOBRE ========== -->
+      <section id="sobre" class="sobre">
+        <div class="secao-container">
+          <div class="secao-cabecalho">
+            <p class="secao-label">Quem somos</p>
+            <h2 class="secao-titulo">Nossa história</h2>
+          </div>
+
+          <p class="sobre-texto">
+            Há mais de 10 anos servindo pratos feitos com ingredientes frescos e
+            receitas que passam de geração em geração. Cada prato conta uma
+            história de carinho e dedicação.
+          </p>
+
+          <div class="numeros-grid">
+            <div class="numero-item">
+              <p class="numero-valor">10+</p>
+              <p class="numero-label">Anos de história</p>
+            </div>
+            <div class="numero-item">
+              <p class="numero-valor">500+</p>
+              <p class="numero-label">Clientes por dia</p>
+            </div>
+            <div class="numero-item">
+              <p class="numero-valor">40+</p>
+              <p class="numero-label">Pratos no cardápio</p>
+            </div>
+          </div>
+        </div>
+      </section>
+      <!-- ========== FIM SOBRE ========== -->
+    </main>
+
+    <!-- ========== RODAPÉ / CONTATO ========== -->
+    <footer id="contato" class="rodape">
+      <div class="secao-container">
+        <h2 class="rodape-titulo">Fale conosco</h2>
+
+        <div class="contato-grid">
+          <div class="contato-item">
+            <p class="contato-icone">📍</p>
+            <p class="contato-texto">
+              Rua das Flores, 123 — Centro, Caxias - MA
+            </p>
+          </div>
+          <div class="contato-item">
+            <p class="contato-icone">🕐</p>
+            <p class="contato-texto">Segunda a Sábado: 11h às 22h</p>
+          </div>
+          <div class="contato-item">
+            <p class="contato-icone">📱</p>
+            <a
+              href="https://wa.me/5599981502997"
+              class="contato-link"
+              target="_blank"
+            >
+              (99) 9 98150-2997
+            </a>
+          </div>
+        </div>
+
+        <p class="rodape-copy">
+          © 2026 Império Salgados · Todos os direitos reservados
+        </p>
+        <p class="rodape-copy">Desenvolvido por Cauan Carvalho</p>
+      </div>
+    </footer>
+    <!-- ========== FIM RODAPÉ ========== -->
+
+    <!-- JS externo -->
+    <script src="script.js"></script>
+  </body>
+</html>
