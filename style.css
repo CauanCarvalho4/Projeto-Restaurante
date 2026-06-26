@@ -17,25 +17,29 @@ html {
 ================================ */
 
 :root {
-    /* Paleta extraida da foto "imperio-salgados.jfif" */
-    --cor-primaria: #C8842E;
-    /* dourado torrado - casca dos salgados fritos */
-    --cor-secundaria: #E0A85C;
-    /* dourado mais claro - destaque/hover */
-    --cor-fundo: #FBF6EC;
-    /* creme bem claro - fundo geral da pagina */
-    --cor-fundo-secao: #F3E6CE;
-    /* bege - diferencia secoes do fundo geral */
-    --cor-texto: #3A2614;
-    /* marrom escuro quase preto - texto principal */
-    --cor-texto-suave: #7A6651;
-    /* marrom acinzentado - texto secundario */
+    /* Paleta extraída por amostragem real de pixels da logo "Império dos Salgados" */
+    --cor-primaria: #A80000;
+    /* vermelho-bordô — faixa e fundo da logo */
+    --cor-primaria-escura: #780000;
+    /* vermelho mais profundo — usado em hover/sombra */
+    --cor-secundaria: #F07818;
+    /* laranja vibrante — chama da logo */
+    --cor-acento: #F0C800;
+    /* amarelo-dourado — texto "Império" e miolo da chama */
+    --cor-fundo: #FFFCF7;
+    /* quase-branco quente - fundo geral, leve */
+    --cor-fundo-secao: #FFF3E0;
+    /* pêssego bem claro - diferencia seções sem pesar */
+    --cor-texto: #3D1808;
+    /* marrom-vinho escuro - texto principal */
+    --cor-texto-suave: #8C6F5E;
+    /* marrom acinzentado claro - texto secundário */
     --cor-branco: #FFFFFF;
 
     --fonte: 'Poppins', sans-serif;
 
-    --sombra: 0 4px 20px rgba(122, 74, 34, 0.15);
-    --raio: 14px;
+    --sombra: 0 6px 18px rgba(168, 0, 0, 0.10);
+    --raio: 16px;
     --transicao: 0.3s ease;
 }
 
@@ -64,29 +68,35 @@ a {
     top: 0;
     z-index: 100;
     background-color: var(--cor-branco);
-    border-bottom: 1px solid rgba(232, 82, 26, 0.15);
-    position: relative;
+    border-bottom: 3px solid transparent;
+    border-image: linear-gradient(90deg, var(--cor-primaria), var(--cor-secundaria), var(--cor-acento));
+    border-image-slice: 1;
 }
 
 .cabecalho-container {
-    width: 90%;
-    max-width: 1200px;
+    width: 100%;
+    max-width: 2000px;
     margin: 0 auto;
-    padding: 18px 0;
+    position: relative;
+    background-color: var(--cor-branco);
+    padding: 10px 5%;
     display: flex;
-    justify-content: space-between;
+    justify-content: flex-start;
     align-items: center;
+    gap: 16px;
 }
 
 .cabecalho-logo {
     display: flex;
     align-items: center;
+    flex-shrink: 0;
 }
 
 .logo-imagem {
-    height: 100px;
+    height: 56px;
     width: auto;
     display: block;
+    border-radius: 50%;
 }
 
 /* ================================
@@ -102,7 +112,7 @@ a {
     left: 0;
     width: 100%;
     background-color: var(--cor-branco);
-    border-top: 1px solid rgba(232, 82, 26, 0.1);
+    border-top: 1px solid rgba(156, 43, 31, 0.1);
     padding: 0;
 
     /* Animação de entrada */
@@ -141,6 +151,7 @@ a {
     flex-direction: column;
     gap: 5px;
     padding: 5px;
+    flex-shrink: 0;
 }
 
 .hamburger-linha {
@@ -214,10 +225,11 @@ a {
     font-size: 0.95rem;
     font-weight: 600;
     transition: var(--transicao);
+    display: inline-block;
 }
 
 .btn-primario:hover {
-    background-color: #c94414;
+    background-color: var(--cor-primaria-escura);
     transform: translateY(-2px);
     box-shadow: var(--sombra);
 }
@@ -231,6 +243,7 @@ a {
     font-size: 0.95rem;
     font-weight: 600;
     transition: var(--transicao);
+    display: inline-block;
 }
 
 .btn-secundario:hover {
@@ -270,12 +283,21 @@ a {
     color: var(--cor-texto);
 }
 
+.secao-subtitulo {
+    font-size: 0.92rem;
+    color: var(--cor-texto-suave);
+    max-width: 520px;
+    margin: 12px auto 0;
+}
+
 /* ================================
    TICKER
 ================================ */
 
 .ticker {
-    background-color: var(--cor-primaria);
+    background-color: var(--cor-fundo-secao);
+    border-top: 1px solid rgba(168, 0, 0, 0.08);
+    border-bottom: 1px solid rgba(168, 0, 0, 0.08);
     padding: 12px 0;
     overflow: hidden;
     white-space: nowrap;
@@ -289,8 +311,8 @@ a {
 
 .ticker-faixa span {
     font-size: 0.9rem;
-    font-weight: 500;
-    color: var(--cor-branco);
+    font-weight: 600;
+    color: var(--cor-primaria);
     flex-shrink: 0;
 }
 
@@ -325,13 +347,13 @@ a {
     padding: 20px;
     background-color: var(--cor-fundo-secao);
     border-radius: var(--raio);
-    border: 1px solid rgba(232, 82, 26, 0.1);
+    border: 1px solid rgba(156, 43, 31, 0.12);
     transition: var(--transicao);
 }
 
 .prato-card:hover {
     transform: translateY(-4px);
-    box-shadow: 5px 5px 5px rgb(161, 161, 161);
+    box-shadow: var(--sombra);
 }
 
 .prato-imagem {
@@ -362,47 +384,107 @@ a {
 }
 
 /* ================================
-   SOBRE
+   BOLOS & BUFFET
 ================================ */
 
-.sobre {
+.bolos-buffet {
     background-color: var(--cor-fundo-secao);
 }
 
-.sobre-texto {
-    font-size: 1rem;
-    color: var(--cor-texto-suave);
-    text-align: center;
-    max-width: 600px;
-    margin: 0 auto 40px;
-    line-height: 1.8;
-}
-
-.numeros-grid {
+.destaque-grid {
     display: grid;
-    grid-template-columns: repeat(3, 1fr);
-    gap: 16px;
+    grid-template-columns: 1fr;
+    gap: 20px;
 }
 
-.numero-item {
-    text-align: center;
-    padding: 24px 16px;
+.destaque-card {
     background-color: var(--cor-branco);
     border-radius: var(--raio);
-    border: 1px solid rgba(232, 82, 26, 0.1);
+    overflow: hidden;
+    border: 1px solid rgba(156, 43, 31, 0.12);
+    transition: var(--transicao);
 }
 
-.numero-valor {
-    font-size: 2rem;
+.destaque-card:hover {
+    transform: translateY(-4px);
+    box-shadow: var(--sombra);
+}
+
+.destaque-imagem {
+    width: 100%;
+    height: 160px;
+    object-fit: cover;
+    display: block;
+}
+
+.destaque-info {
+    padding: 20px;
+}
+
+.destaque-info h3 {
+    font-size: 1.15rem;
     font-weight: 700;
     color: var(--cor-primaria);
-    margin-bottom: 4px;
+    margin-bottom: 8px;
 }
 
-.numero-label {
-    font-size: 0.82rem;
+.destaque-info p {
+    font-size: 0.92rem;
     color: var(--cor-texto-suave);
 }
+
+/* ================================
+   COMO PEDIR
+================================ */
+
+.como-pedir {
+    background-color: var(--cor-branco);
+}
+
+.checklist {
+    list-style: none;
+    display: flex;
+    flex-direction: column;
+    gap: 14px;
+    max-width: 560px;
+    margin: 0 auto 36px;
+}
+
+.checklist-item {
+    display: flex;
+    align-items: flex-start;
+    gap: 14px;
+    padding: 14px 16px;
+    background-color: var(--cor-fundo-secao);
+    border-radius: var(--raio);
+}
+
+.checklist-numero {
+    flex-shrink: 0;
+    width: 28px;
+    height: 28px;
+    border-radius: 50%;
+    background-color: var(--cor-primaria);
+    color: var(--cor-branco);
+    font-weight: 700;
+    font-size: 0.85rem;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.checklist-texto {
+    font-size: 0.92rem;
+    color: var(--cor-texto);
+    padding-top: 3px;
+}
+
+.btn-centro {
+    display: block;
+    width: fit-content;
+    margin: 0 auto;
+}
+
 
 /* ================================
    RODAPÉ / CONTATO
@@ -485,17 +567,40 @@ a {
         gap: 32px;
         max-height: none;
         overflow: visible;
+        margin-left: 48px;
+    }
+
+    .logo-imagem {
+        height: 92px;
     }
 
     .nav-link {
-        padding: 0;
+        padding: 8px 4px;
         border: none;
-        font-size: 0.9rem;
+        font-size: 0.92rem;
+        font-weight: 500;
+        color: var(--cor-texto);
+        position: relative;
+    }
+
+    .nav-link::after {
+        content: '';
+        position: absolute;
+        bottom: 0;
+        left: 4px;
+        right: 4px;
+        height: 2px;
+        background: var(--cor-secundaria);
+        transform: scaleX(0);
+        transition: var(--transicao);
     }
 
     .nav-link:hover {
-        padding-left: 0;
         color: var(--cor-primaria);
+    }
+
+    .nav-link:hover::after {
+        transform: scaleX(1);
     }
 
     .hero-titulo {
@@ -503,6 +608,10 @@ a {
     }
 
     .cardapio-grid {
+        grid-template-columns: repeat(2, 1fr);
+    }
+
+    .destaque-grid {
         grid-template-columns: repeat(2, 1fr);
     }
 

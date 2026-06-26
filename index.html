@@ -7,23 +7,24 @@
     <!-- SEO -->
     <meta
       name="description"
-      content="Império Salgados, lanchonete em Caxias - MA"
+      content="Império dos Salgados — salgados, bolos e buffet em Caxias - MA. Encomendas pelo WhatsApp, retirada ou entrega."
     />
     <meta
       name="keywords"
-      content="Salgados, Império, Lanches, Caxias, lanchonete, cardápio"
+      content="Salgados, Império, Bolos, Buffet, Caxias, encomenda, festa"
     />
     <meta name="author" content="Cauan Carvalho" />
 
     <!-- Open Graph -->
-    <meta property="og:title" content="Sabor & Cia | Restaurante" />
+    <meta property="og:title" content="Império dos Salgados | Caxias - MA" />
     <meta
       property="og:description"
-      content="Comida caseira feita com amor e tempero de verdade."
+      content="Salgados, bolos e buffet para festas e eventos. Confira o cardápio e faça seu pedido pelo WhatsApp."
     />
+    <meta property="og:image" content="img/imperio-salgados.jfif" />
     <meta property="og:type" content="website" />
 
-    <title>Império Salgados</title>
+    <title>Império dos Salgados</title>
 
     <!-- Fonte -->
     <link rel="preconnect" href="https://fonts.googleapis.com" />
@@ -41,27 +42,30 @@
     <!-- ========== CABEÇALHO ========== -->
     <header class="cabecalho">
       <div class="cabecalho-container">
-        <!-- Logo substituída por imagem -->
         <a href="#inicio" class="cabecalho-logo">
           <img
-            src="img/imperio-salgados.jfif"
-            alt="Império Salgados"
+            src="imperio-salgados.jfif"
+            alt="Império dos Salgados"
             class="logo-imagem"
           />
         </a>
 
-        <!-- Botão hambúrguer -->
-        <button class="hamburger-btn" id="hamburgerBtn" aria-label="Abrir menu">
+        <button
+          class="hamburger-btn"
+          id="hamburgerBtn"
+          aria-label="Abrir menu"
+          aria-expanded="false"
+        >
           <span class="hamburger-linha"></span>
           <span class="hamburger-linha"></span>
           <span class="hamburger-linha"></span>
         </button>
 
-        <!-- Navegação -->
         <nav class="nav" id="nav">
           <a href="#inicio" class="nav-link">Início</a>
           <a href="#cardapio" class="nav-link">Cardápio</a>
-          <a href="#sobre" class="nav-link">Sobre</a>
+          <a href="#bolos-buffet" class="nav-link">Bolos &amp; Buffet</a>
+          <a href="#como-pedir" class="nav-link">Como pedir</a>
           <a href="#contato" class="nav-link">Contato</a>
         </nav>
       </div>
@@ -72,17 +76,23 @@
       <!-- ========== HERO ========== -->
       <section id="inicio" class="hero">
         <div class="hero-conteudo">
-          <p class="hero-subtitulo">Bem-vindo ao Império Salgados</p>
+          <p class="hero-subtitulo">Império dos Salgados · Caxias - MA</p>
           <h1 class="hero-titulo">
-            Sabores que <span class="hero-destaque">contam histórias</span>
+            O melhor salgado
+            <span class="hero-destaque">para qualquer momento</span>
           </h1>
           <p class="hero-descricao">
-            Comida caseira feita com amor, ingredientes frescos e tempero de
-            verdade.
+            Salgados fritos e assados, bolos e buffet completo para festas e
+            eventos. Encomende com facilidade, retire ou receba em casa.
           </p>
           <div class="hero-botoes">
             <a href="#cardapio" class="btn-primario">Ver cardápio</a>
-            <a href="#contato" class="btn-secundario">Reservar mesa</a>
+            <a
+              href="https://wa.me/5599988085372"
+              class="btn-secundario"
+              target="_blank"
+              >Pedir no WhatsApp</a
+            >
           </div>
         </div>
       </section>
@@ -91,19 +101,16 @@
       <!-- ========== TICKER ========== -->
       <div class="ticker">
         <div class="ticker-faixa">
-          <span>🍝 Macarrão ao molho da casa</span>
-          <span>🍔 Burger artesanal especial</span>
-          <span>🍗 Frango grelhado completo</span>
-          <span>🥗 Salada especial da casa</span>
-          <span>⭐ Aberto de Seg a Sáb · 11h às 22h</span>
-          <span>📍 Rua das Flores, 123 — Centro</span>
-          <!-- Repetição para o loop ficar contínuo -->
-          <span>🍝 Macarrão ao molho da casa</span>
-          <span>🍔 Burger artesanal especial</span>
-          <span>🍗 Frango grelhado completo</span>
-          <span>🥗 Salada especial da casa</span>
-          <span>⭐ Aberto de Seg a Sáb · 11h às 22h</span>
-          <span>📍 Rua das Flores, 123 — Centro</span>
+          <span>🥟 Salgados a partir de R$ 1,00</span>
+          <span>🎂 Bolos personalizados</span>
+          <span>🎉 Buffet para festas e eventos</span>
+          <span>⭐ Seg a Sáb · 8h às 19h</span>
+          <span>📍 Av. Jerusalém, 2408 — Nova Caxias</span>
+          <span>🥟 Salgados a partir de R$ 1,00</span>
+          <span>🎂 Bolos personalizados</span>
+          <span>🎉 Buffet para festas e eventos</span>
+          <span>⭐ Seg a Sáb · 8h às 19h</span>
+          <span>📍 Av. Jerusalém, 2408 — Nova Caxias</span>
         </div>
       </div>
       <!-- ========== FIM TICKER ========== -->
@@ -112,70 +119,70 @@
       <section id="cardapio" class="cardapio">
         <div class="secao-container">
           <div class="secao-cabecalho">
-            <p class="secao-label">O que servimos</p>
-            <h2 class="secao-titulo">Destaques do dia</h2>
+            <p class="secao-label">Salgados</p>
+            <h2 class="secao-titulo">Cardápio por quantidade</h2>
+            <p class="secao-subtitulo">
+              Coxinha de frango, croquete, pastel de creme, pastel de forno,
+              bolinha de queijo com presunto e quibe.
+            </p>
           </div>
 
           <div class="cardapio-grid">
             <article class="prato-card">
               <img
-                src="img/macarrao.jpg"
-                alt="Macarrão ao molho da casa"
+                src="img/unidade.jpg"
+                alt="Salgado avulso"
                 class="prato-imagem"
               />
               <div class="prato-info">
-                <h3 class="prato-nome">Macarrão ao molho da casa</h3>
-                <p class="prato-descricao">
-                  Macarrão artesanal com molho sugo encorpado e manjericão
-                  fresco.
-                </p>
-                <p class="prato-preco">R$ 28,90</p>
+                <h3 class="prato-nome">Salgado avulso</h3>
+                <p class="prato-descricao">Unidade, sabor à sua escolha.</p>
+                <p class="prato-preco">a partir de R$ 1,00</p>
               </div>
             </article>
 
             <article class="prato-card">
               <img
-                src="img/burguer-artesanal.jpg"
-                alt="Burger artesanal especial"
+                src="img/meio-cento.jpg"
+                alt="Meio cento de salgados"
                 class="prato-imagem"
               />
               <div class="prato-info">
-                <h3 class="prato-nome">Burger artesanal especial</h3>
+                <h3 class="prato-nome">Meio cento</h3>
                 <p class="prato-descricao">
-                  Blend da casa, queijo cheddar, alface, tomate e molho
-                  especial.
+                  50 salgados, ideal para reuniões pequenas.
                 </p>
-                <p class="prato-preco">R$ 34,90</p>
+                <p class="prato-preco">R$ 30,00</p>
               </div>
             </article>
 
             <article class="prato-card">
               <img
-                src="img/frango-grelhado.jpg"
-                alt="Frango grelhado completo"
+                src="img/cento-salgados.jpg"
+                alt="Cento de salgados"
                 class="prato-imagem"
               />
               <div class="prato-info">
-                <h3 class="prato-nome">Frango grelhado completo</h3>
+                <h3 class="prato-nome">Cento completo</h3>
                 <p class="prato-descricao">
-                  Filé grelhado com arroz, feijão, farofa e salada.
+                  100 salgados variados, perfeito para festas.
                 </p>
-                <p class="prato-preco">R$ 32,90</p>
+                <p class="prato-preco">R$ 60,00</p>
               </div>
             </article>
 
             <article class="prato-card">
               <img
-                src="img/salada-verde.jpg"
-                alt="Salada especial da casa"
+                src="img/mini-salgados.jpg"
+                alt="Mini salgados"
                 class="prato-imagem"
               />
               <div class="prato-info">
-                <h3 class="prato-nome">Salada especial da casa</h3>
+                <h3 class="prato-nome">Mini salgados</h3>
                 <p class="prato-descricao">
-                  Mix de folhas, tomate cereja, pepino e molho de limão.
+                  Para aniversários, chá de bebê, formaturas e reuniões em casa.
                 </p>
-                <p class="prato-preco">R$ 18,90</p>
+                <p class="prato-preco">Consulte valores</p>
               </div>
             </article>
           </div>
@@ -183,37 +190,92 @@
       </section>
       <!-- ========== FIM CARDÁPIO ========== -->
 
-      <!-- ========== SOBRE ========== -->
-      <section id="sobre" class="sobre">
+      <!-- ========== BOLOS & BUFFET ========== -->
+      <section id="bolos-buffet" class="bolos-buffet">
         <div class="secao-container">
           <div class="secao-cabecalho">
-            <p class="secao-label">Quem somos</p>
-            <h2 class="secao-titulo">Nossa história</h2>
+            <p class="secao-label">Mais do Império</p>
+            <h2 class="secao-titulo">Bolos &amp; Buffet</h2>
           </div>
 
-          <p class="sobre-texto">
-            Há mais de 10 anos servindo pratos feitos com ingredientes frescos e
-            receitas que passam de geração em geração. Cada prato conta uma
-            história de carinho e dedicação.
-          </p>
+          <div class="destaque-grid">
+            <article class="destaque-card">
+              <img
+                src="img/bolo.jpg"
+                alt="Bolos personalizados"
+                class="destaque-imagem"
+              />
+              <div class="destaque-info">
+                <h3>Bolos</h3>
+                <p>
+                  Bolos personalizados para aniversários e ocasiões especiais.
+                  Fatia a partir de R$ 2,00.
+                </p>
+              </div>
+            </article>
 
-          <div class="numeros-grid">
-            <div class="numero-item">
-              <p class="numero-valor">10+</p>
-              <p class="numero-label">Anos de história</p>
-            </div>
-            <div class="numero-item">
-              <p class="numero-valor">500+</p>
-              <p class="numero-label">Clientes por dia</p>
-            </div>
-            <div class="numero-item">
-              <p class="numero-valor">40+</p>
-              <p class="numero-label">Pratos no cardápio</p>
-            </div>
+            <article class="destaque-card">
+              <img
+                src="img/buffet.jpg"
+                alt="Buffet para eventos"
+                class="destaque-imagem"
+              />
+              <div class="destaque-info">
+                <h3>Buffet</h3>
+                <p>
+                  Buffet completo para festas e eventos. Solicite seu orçamento
+                  personalizado.
+                </p>
+              </div>
+            </article>
           </div>
         </div>
       </section>
-      <!-- ========== FIM SOBRE ========== -->
+      <!-- ========== FIM BOLOS & BUFFET ========== -->
+
+      <!-- ========== COMO PEDIR ========== -->
+      <section id="como-pedir" class="como-pedir">
+        <div class="secao-container">
+          <div class="secao-cabecalho">
+            <p class="secao-label">É fácil</p>
+            <h2 class="secao-titulo">Como fazer seu pedido</h2>
+          </div>
+
+          <ol class="checklist">
+            <li class="checklist-item">
+              <span class="checklist-numero">1</span>
+              <span class="checklist-texto"
+                >Entre em contato pelos nossos canais de atendimento ou
+                presencialmente</span
+              >
+            </li>
+            <li class="checklist-item">
+              <span class="checklist-numero">2</span>
+              <span class="checklist-texto">Escolha a quantidade</span>
+            </li>
+            <li class="checklist-item">
+              <span class="checklist-numero">3</span>
+              <span class="checklist-texto">Agende a data e horário</span>
+            </li>
+            <li class="checklist-item">
+              <span class="checklist-numero">4</span>
+              <span class="checklist-texto">Informe a forma de pagamento</span>
+            </li>
+            <li class="checklist-item">
+              <span class="checklist-numero">5</span>
+              <span class="checklist-texto">Retire ou receba em casa</span>
+            </li>
+          </ol>
+
+          <a
+            href="https://wa.me/5599988085372"
+            class="btn-primario btn-centro"
+            target="_blank"
+            >Fazer pedido agora</a
+          >
+        </div>
+      </section>
+      <!-- ========== FIM COMO PEDIR ========== -->
     </main>
 
     <!-- ========== RODAPÉ / CONTATO ========== -->
@@ -225,27 +287,37 @@
           <div class="contato-item">
             <p class="contato-icone">📍</p>
             <p class="contato-texto">
-              Rua das Flores, 123 — Centro, Caxias - MA
+              Av. Jerusalém, 2408 — Nova Caxias, Caxias - MA
             </p>
           </div>
           <div class="contato-item">
             <p class="contato-icone">🕐</p>
-            <p class="contato-texto">Segunda a Sábado: 11h às 22h</p>
+            <p class="contato-texto">Seg a Sáb: 8h às 19h · Dom: 8h às 17h</p>
           </div>
           <div class="contato-item">
             <p class="contato-icone">📱</p>
             <a
-              href="https://wa.me/5599981502997"
+              href="https://wa.me/5599988085372"
               class="contato-link"
               target="_blank"
             >
-              (99) 9 98150-2997
+              (99) 98808-5372
+            </a>
+          </div>
+          <div class="contato-item">
+            <p class="contato-icone">📸</p>
+            <a
+              href="https://instagram.com/imperio_dos_salgados08"
+              class="contato-link"
+              target="_blank"
+            >
+              @imperio_dos_salgados08
             </a>
           </div>
         </div>
 
         <p class="rodape-copy">
-          © 2026 Império Salgados · Todos os direitos reservados
+          © 2026 Império dos Salgados · Todos os direitos reservados
         </p>
         <p class="rodape-copy">Desenvolvido por Cauan Carvalho</p>
       </div>
