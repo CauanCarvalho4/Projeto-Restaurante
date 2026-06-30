@@ -81,7 +81,7 @@ a {
     background-color: var(--cor-branco);
     padding: 10px 5%;
     display: flex;
-    justify-content: flex-start;
+    justify-content: space-between;
     align-items: center;
     gap: 16px;
 }
@@ -92,11 +92,17 @@ a {
     flex-shrink: 0;
 }
 
-.logo-imagem {
-    height: 56px;
-    width: auto;
+.logo-texto {
+    font-size: 1.3rem;
+    color: var(--cor-texto);
+    font-weight: 700;
+    line-height: 1.1;
+}
+
+.logo-destaque {
     display: block;
-    border-radius: 50%;
+    font-size: 0.95rem;
+    color: var(--cor-primaria);
 }
 
 /* ================================
