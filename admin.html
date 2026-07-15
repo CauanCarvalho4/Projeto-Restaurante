@@ -1,0 +1,836 @@
+<!doctype html>
+<html lang="pt-BR">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Painel Admin — Brasas Burger</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Anton&family=Work+Sans:wght@400;500;600;700&display=swap"
+      rel="stylesheet"
+    />
+
+    <style>
+      :root {
+        --carvao: #17110e;
+        --carvao-claro: #241a15;
+        --brasa: #ff6b35;
+        --brasa-clara: #ff8a5c;
+        --crosta: #e8a33d;
+        --creme: #fff4e8;
+        --creme-suave: #d8c7ba;
+        --branco: #ffffff;
+        --perigo: #e5484d;
+        --raio: 16px;
+      }
+      * {
+        box-sizing: border-box;
+        margin: 0;
+        padding: 0;
+      }
+      body {
+        font-family: "Work Sans", sans-serif;
+        background: #100c0a;
+        color: var(--creme);
+      }
+      h1,
+      h2,
+      h3 {
+        font-family: "Anton", sans-serif;
+        text-transform: uppercase;
+        font-weight: 400;
+        letter-spacing: 0.01em;
+      }
+
+      #login-screen {
+        min-height: 100vh;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        padding: 24px;
+        position: relative;
+        overflow: hidden;
+      }
+      #login-screen::before {
+        content: "";
+        position: absolute;
+        inset: 0;
+        background: radial-gradient(
+          ellipse 60% 50% at 50% 10%,
+          rgba(255, 107, 53, 0.16),
+          transparent 70%
+        );
+      }
+      .login-card {
+        background: var(--carvao-claro);
+        border: 1px solid rgba(255, 244, 232, 0.08);
+        border-radius: var(--raio);
+        padding: 40px 32px;
+        max-width: 380px;
+        width: 100%;
+        position: relative;
+        z-index: 1;
+      }
+      .marca {
+        text-align: center;
+        margin-bottom: 26px;
+      }
+      .marca .icone {
+        font-size: 30px;
+        margin-bottom: 6px;
+      }
+      .login-card h1 {
+        font-size: 22px;
+      }
+      .tag {
+        color: var(--creme-suave);
+        font-size: 13px;
+        margin-top: 6px;
+      }
+
+      label {
+        display: block;
+        font-size: 13px;
+        font-weight: 600;
+        color: var(--creme-suave);
+        margin: 16px 0 6px;
+      }
+      input,
+      textarea,
+      select {
+        width: 100%;
+        padding: 12px 14px;
+        border: 1px solid rgba(255, 244, 232, 0.14);
+        border-radius: 10px;
+        font-family: inherit;
+        font-size: 14px;
+        background: var(--carvao);
+        color: var(--creme);
+      }
+      input:focus,
+      textarea:focus,
+      select:focus {
+        outline: 2px solid var(--brasa);
+        outline-offset: 1px;
+      }
+
+      button {
+        font-family: inherit;
+        cursor: pointer;
+        border: none;
+      }
+      .btn-primary {
+        background: var(--brasa);
+        color: var(--carvao);
+        font-weight: 700;
+        padding: 13px 18px;
+        font-size: 15px;
+        width: 100%;
+        margin-top: 22px;
+        border-radius: 999px;
+      }
+      .btn-primary:hover {
+        background: var(--brasa-clara);
+        transform: translateY(-2px);
+      }
+
+      #app {
+        display: none;
+        min-height: 100vh;
+      }
+      .shell {
+        display: flex;
+        flex-direction: column;
+        min-height: 100vh;
+      }
+      .topbar {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        padding: 16px 20px;
+        background: var(--carvao-claro);
+        border-bottom: 1px solid rgba(255, 244, 232, 0.08);
+      }
+      .topbar .marca {
+        display: flex;
+        align-items: center;
+        gap: 8px;
+        font-size: 15px;
+        font-family: "Anton", sans-serif;
+        text-transform: uppercase;
+      }
+      .logout-btn {
+        background: transparent;
+        color: var(--creme-suave);
+        font-size: 13px;
+        padding: 8px 14px;
+        border-radius: 999px;
+      }
+
+      nav.tabs {
+        display: flex;
+        gap: 6px;
+        padding: 14px 20px 0;
+        overflow-x: auto;
+      }
+      nav.tabs button {
+        background: var(--carvao-claro);
+        color: var(--creme-suave);
+        font-weight: 600;
+        font-size: 13px;
+        padding: 10px 18px;
+        border-radius: 999px 999px 0 0;
+        white-space: nowrap;
+      }
+      nav.tabs button.active {
+        background: var(--brasa);
+        color: var(--carvao);
+      }
+
+      main {
+        flex: 1;
+        padding: 24px 20px 60px;
+        max-width: 1000px;
+        margin: 0 auto;
+        width: 100%;
+      }
+
+      .page-head {
+        display: flex;
+        align-items: flex-start;
+        justify-content: space-between;
+        gap: 14px;
+        margin-bottom: 20px;
+        flex-wrap: wrap;
+      }
+      .eyebrow {
+        text-transform: uppercase;
+        letter-spacing: 0.06em;
+        font-size: 11px;
+        color: var(--crosta);
+        font-weight: 700;
+        margin-bottom: 6px;
+      }
+      .btn-add {
+        background: var(--brasa);
+        color: var(--carvao);
+        font-weight: 700;
+        font-size: 13px;
+        padding: 11px 20px;
+        border-radius: 999px;
+      }
+
+      .search-box {
+        width: 100%;
+        max-width: 320px;
+        padding: 10px 16px;
+        margin-bottom: 16px;
+        border: 1px solid rgba(255, 244, 232, 0.14);
+        border-radius: 999px;
+        background: var(--carvao-claro);
+        color: var(--creme);
+        font-size: 13px;
+      }
+
+      .lista-produtos {
+        display: flex;
+        flex-direction: column;
+        gap: 10px;
+      }
+      .produto-linha {
+        display: flex;
+        align-items: center;
+        gap: 14px;
+        background: var(--carvao-claro);
+        border: 1px solid rgba(255, 244, 232, 0.08);
+        border-radius: var(--raio);
+        padding: 12px 16px;
+      }
+      .produto-linha img {
+        width: 52px;
+        height: 52px;
+        border-radius: 10px;
+        object-fit: cover;
+      }
+      .sem-foto {
+        width: 52px;
+        height: 52px;
+        border-radius: 10px;
+        background: var(--carvao);
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-size: 18px;
+        color: var(--creme-suave);
+      }
+      .produto-preco {
+        font-weight: 700;
+        color: var(--crosta);
+        font-size: 14px;
+        white-space: nowrap;
+      }
+      .row-actions {
+        display: flex;
+        gap: 6px;
+      }
+      .icon-btn {
+        background: var(--carvao);
+        color: var(--creme-suave);
+        font-size: 12px;
+        font-weight: 600;
+        padding: 7px 12px;
+        border-radius: 999px;
+      }
+      .icon-btn:hover {
+        background: var(--brasa);
+        color: var(--carvao);
+      }
+      .icon-btn.danger:hover {
+        background: var(--perigo);
+        color: var(--branco);
+      }
+
+      .empty-state {
+        text-align: center;
+        padding: 60px 20px;
+        color: var(--creme-suave);
+      }
+      .empty-state .icone {
+        font-size: 30px;
+        display: block;
+        margin-bottom: 10px;
+      }
+
+      .overlay {
+        display: none;
+        position: fixed;
+        inset: 0;
+        background: rgba(0, 0, 0, 0.7);
+        align-items: center;
+        justify-content: center;
+        padding: 20px;
+        z-index: 50;
+      }
+      .overlay.open {
+        display: flex;
+      }
+      .modal {
+        background: var(--carvao-claro);
+        border: 1px solid rgba(255, 244, 232, 0.1);
+        border-radius: var(--raio);
+        padding: 26px;
+        max-width: 440px;
+        width: 100%;
+        max-height: 88vh;
+        overflow-y: auto;
+      }
+      .modal-actions {
+        display: flex;
+        gap: 10px;
+        margin-top: 22px;
+      }
+      .btn-secondary,
+      .btn-save {
+        flex: 1;
+        padding: 11px 16px;
+        border-radius: 999px;
+        font-weight: 600;
+      }
+      .btn-secondary {
+        background: var(--carvao);
+        color: var(--creme);
+      }
+      .btn-save {
+        background: var(--brasa);
+        color: var(--carvao);
+        font-weight: 700;
+      }
+
+      #toast {
+        position: fixed;
+        bottom: 24px;
+        left: 50%;
+        transform: translateX(-50%);
+        background: var(--creme);
+        color: var(--carvao);
+        padding: 12px 22px;
+        border-radius: 999px;
+        font-size: 13px;
+        font-weight: 600;
+        opacity: 0;
+        transition: opacity 0.2s;
+        z-index: 100;
+      }
+      #toast.show {
+        opacity: 1;
+      }
+    </style>
+  </head>
+  <body>
+    <!-- LOGIN -->
+    <div id="login-screen">
+      <div class="login-card">
+        <div class="marca">
+          <div class="icone">🔥</div>
+          <h1>Brasas Burger</h1>
+          <p class="tag">Painel Administrativo</p>
+        </div>
+        <form id="login-form">
+          <label for="email">E-mail</label>
+          <input type="email" id="email" required autocomplete="username" />
+          <label for="password">Senha</label>
+          <input
+            type="password"
+            id="password"
+            required
+            autocomplete="current-password"
+          />
+          <p
+            id="login-error"
+            style="
+              color: #e5484d;
+              font-size: 13px;
+              margin-top: 12px;
+              display: none;
+            "
+          ></p>
+          <button type="submit" class="btn-primary">Entrar</button>
+        </form>
+      </div>
+    </div>
+
+    <!-- APP -->
+    <div id="app">
+      <div class="shell">
+        <div class="topbar">
+          <div class="marca">🔥 Brasas Burger</div>
+          <button class="logout-btn" id="logout-btn">Sair</button>
+        </div>
+
+        <nav class="tabs">
+          <button data-tab="produtos" class="active">Cardápio</button>
+          <button data-tab="config">Configurações</button>
+        </nav>
+
+        <main>
+          <section id="tab-produtos" class="tab-content">
+            <div class="page-head">
+              <div>
+                <div class="eyebrow">Aparece no site</div>
+                <h2>Cardápio</h2>
+              </div>
+              <button class="btn-add" data-open-modal="produtos">
+                + Novo item
+              </button>
+            </div>
+            <input
+              type="text"
+              class="search-box"
+              id="produtos-search"
+              placeholder="Buscar por nome..."
+            />
+            <div class="lista-produtos" id="produtos-lista"></div>
+            <div id="produtos-empty" class="empty-state" style="display: none">
+              <span class="icone">🍔</span>
+              Nenhum item cadastrado ainda.
+            </div>
+          </section>
+
+          <section id="tab-config" class="tab-content" style="display: none">
+            <div class="page-head">
+              <div>
+                <div class="eyebrow">Dados públicos</div>
+                <h2>Configurações da Loja</h2>
+              </div>
+            </div>
+            <div
+              style="
+                background: var(--carvao-claro);
+                padding: 24px;
+                border-radius: 16px;
+                max-width: 480px;
+              "
+            >
+              <form id="config-form">
+                <label for="cfgWhatsapp"
+                  >Número do WhatsApp (com DDI + DDD)</label
+                >
+                <input
+                  type="text"
+                  id="cfgWhatsapp"
+                  placeholder="5599999999999"
+                />
+
+                <label for="cfgHorario">Horário de Funcionamento</label>
+                <input
+                  type="text"
+                  id="cfgHorario"
+                  placeholder="Terça a Domingo, 18h às 23h"
+                />
+
+                <label for="cfgEntrega">Observação sobre Entrega</label>
+                <textarea
+                  id="cfgEntrega"
+                  rows="3"
+                  placeholder="Taxa de entrega calculada conforme o bairro"
+                ></textarea>
+
+                <button
+                  type="submit"
+                  style="
+                    margin-top: 20px;
+                    width: 100%;
+                    padding: 14px;
+                    background: var(--brasa);
+                    color: var(--carvao);
+                    font-weight: 700;
+                    border-radius: 999px;
+                  "
+                >
+                  Salvar Configurações
+                </button>
+              </form>
+            </div>
+          </section>
+        </main>
+      </div>
+    </div>
+
+    <!-- MODAL -->
+    <div class="overlay" id="overlay">
+      <div class="modal">
+        <button
+          class="close-x"
+          id="modal-close"
+          style="
+            float: right;
+            background: none;
+            border: none;
+            font-size: 28px;
+            color: var(--creme-suave);
+            cursor: pointer;
+          "
+        >
+          ×
+        </button>
+        <h3 id="modal-title">Novo item</h3>
+        <form id="modal-form"></form>
+      </div>
+    </div>
+
+    <div id="toast"></div>
+
+    <!-- Firebase -->
+    <script src="https://www.gstatic.com/firebasejs/10.13.1/firebase-app-compat.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/10.13.1/firebase-auth-compat.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/10.13.1/firebase-firestore-compat.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/10.13.1/firebase-storage-compat.js"></script>
+
+    <script>
+      const firebaseConfig = {
+        apiKey: "AIzaSyAD71P1qy1SngP5TJIknJtNSS-S1bvC-LE",
+        authDomain: "brasas-burguer-pjt.firebaseapp.com",
+        projectId: "brasas-burguer-pjt",
+        storageBucket: "brasas-burguer-pjt.firebasestorage.app",
+        messagingSenderId: "812502254666",
+        appId: "1:812502254666:web:d6f53f291e4776098d92b3",
+      };
+
+      firebase.initializeApp(firebaseConfig);
+      const auth = firebase.auth();
+      const db = firebase.firestore();
+      const storage = firebase.storage();
+
+      function showToast(msg) {
+        const t = document.getElementById("toast");
+        t.textContent = msg;
+        t.classList.add("show");
+        setTimeout(() => t.classList.remove("show"), 2200);
+      }
+
+      function fmtMoney(v) {
+        return (Number(v) || 0).toLocaleString("pt-BR", {
+          style: "currency",
+          currency: "BRL",
+        });
+      }
+
+      document
+        .getElementById("login-form")
+        .addEventListener("submit", async (e) => {
+          e.preventDefault();
+          const loginError = document.getElementById("login-error");
+          loginError.style.display = "none";
+          try {
+            const email = document.getElementById("email").value;
+            const password = document.getElementById("password").value;
+            await auth.signInWithEmailAndPassword(email, password);
+          } catch (err) {
+            loginError.textContent = "E-mail ou senha incorretos.";
+            loginError.style.display = "block";
+          }
+        });
+
+      document
+        .getElementById("logout-btn")
+        .addEventListener("click", () => auth.signOut());
+
+      document.querySelectorAll("nav.tabs button").forEach((btn) => {
+        btn.addEventListener("click", () => {
+          document
+            .querySelectorAll("nav.tabs button")
+            .forEach((b) => b.classList.remove("active"));
+          btn.classList.add("active");
+          document
+            .querySelectorAll(".tab-content")
+            .forEach((s) => (s.style.display = "none"));
+          document.getElementById("tab-" + btn.dataset.tab).style.display =
+            "block";
+        });
+      });
+
+      const CAMPOS_PRODUTO = [
+        { id: "nome", label: "Nome do item", type: "text", required: true },
+        { id: "imagem", label: "Foto do item", type: "imagem" },
+        {
+          id: "categoria",
+          label: "Categoria",
+          type: "select",
+          options: ["Lanches", "Combos", "Bebidas", "Sobremesas"],
+        },
+        { id: "descricao", label: "Descrição", type: "textarea" },
+        { id: "preco", label: "Preço (R$)", type: "number", required: true },
+      ];
+
+      let produtosCache = [];
+      let editState = null;
+
+      auth.onAuthStateChanged((user) => {
+        if (user) {
+          document.getElementById("login-screen").style.display = "none";
+          document.getElementById("app").style.display = "block";
+          initData();
+        } else {
+          document.getElementById("login-screen").style.display = "flex";
+          document.getElementById("app").style.display = "none";
+        }
+      });
+
+      function initData() {
+        db.collection("produtos")
+          .orderBy("criadoEm", "desc")
+          .onSnapshot((snap) => {
+            produtosCache = snap.docs.map((doc) => ({
+              id: doc.id,
+              data: doc.data(),
+            }));
+            renderProdutos();
+          });
+
+        document
+          .getElementById("produtos-search")
+          .addEventListener("input", renderProdutos);
+        carregarConfig();
+      }
+
+      function renderProdutos() {
+        const termo = document
+          .getElementById("produtos-search")
+          .value.toLowerCase()
+          .trim();
+        const lista = document.getElementById("produtos-lista");
+        const empty = document.getElementById("produtos-empty");
+
+        const filtrados = produtosCache.filter(
+          (p) => !termo || (p.data.nome || "").toLowerCase().includes(termo),
+        );
+
+        lista.innerHTML = "";
+        if (filtrados.length === 0) {
+          empty.style.display = "block";
+          return;
+        }
+        empty.style.display = "none";
+
+        filtrados.forEach(({ id, data }) => {
+          const div = document.createElement("div");
+          div.className = "produto-linha";
+          div.innerHTML = `
+            ${data.imagem ? `<img src="${data.imagem}" alt="">` : `<div class="sem-foto">🍔</div>`}
+            <div style="flex:1">
+              <h4>${data.nome || ""}</h4>
+              <span>${data.categoria || "Sem categoria"}</span>
+            </div>
+            <div class="produto-preco">${fmtMoney(data.preco)}</div>
+            <div class="row-actions">
+              <button class="icon-btn" data-edit="${id}">Editar</button>
+              <button class="icon-btn danger" data-del="${id}">Excluir</button>
+            </div>
+          `;
+          lista.appendChild(div);
+        });
+      }
+
+      const overlay = document.getElementById("overlay");
+      const modalForm = document.getElementById("modal-form");
+
+      function openModal(id = null, existing = {}) {
+        editState = { id };
+        document.getElementById("modal-title").textContent = id
+          ? "Editar item"
+          : "Novo item";
+
+        modalForm.innerHTML =
+          CAMPOS_PRODUTO.map((c) => {
+            const val = existing[c.id] !== undefined ? existing[c.id] : "";
+            if (c.type === "select") {
+              return `<label>${c.label}</label><select id="f-${c.id}">${c.options.map((o) => `<option value="${o}" ${val === o ? "selected" : ""}>${o}</option>`).join("")}</select>`;
+            }
+            if (c.type === "textarea") {
+              return `<label>${c.label}</label><textarea id="f-${c.id}" rows="3">${val}</textarea>`;
+            }
+            if (c.type === "imagem") {
+              return `<label>${c.label}</label>
+              <input type="text" id="f-imagem" value="${val}" placeholder="Cole o link da imagem" />
+              <p style="font-size:12px; margin:8px 0 4px; color:var(--creme-suave);">ou envie do computador:</p>
+              <input type="file" id="f-imagem-file" accept="image/*" />
+              <img id="f-imagem-preview" src="${val}" style="width:100%; max-height:160px; object-fit:cover; border-radius:10px; margin-top:8px; display:${val ? "block" : "none"};" />`;
+            }
+            return `<label>${c.label}</label><input type="${c.type}" id="f-${c.id}" value="${val}" ${c.required ? "required" : ""} />`;
+          }).join("") +
+          `
+          <div class="modal-actions">
+            <button type="button" class="btn-secondary" id="modal-cancel">Cancelar</button>
+            <button type="submit" class="btn-save" id="modal-save-btn">Salvar</button>
+          </div>`;
+
+        overlay.classList.add("open");
+      }
+
+      function closeModal() {
+        overlay.classList.remove("open");
+        editState = null;
+      }
+
+      document
+        .getElementById("modal-close")
+        .addEventListener("click", closeModal);
+
+      modalForm.addEventListener("submit", async (e) => {
+        e.preventDefault();
+        const { id } = editState || {};
+        const data = {};
+
+        CAMPOS_PRODUTO.forEach((c) => {
+          if (c.type === "imagem") return;
+          const el = document.getElementById("f-" + c.id);
+          if (el)
+            data[c.id] =
+              c.type === "number" ? Number(el.value) || 0 : el.value.trim();
+        });
+
+        const saveBtn = document.getElementById("modal-save-btn");
+        const file = document.getElementById("f-imagem-file").files[0];
+        const urlInput = document.getElementById("f-imagem");
+
+        saveBtn.textContent = "Salvando...";
+        saveBtn.disabled = true;
+
+        try {
+          if (file) {
+            const caminho = `cardapio/${Date.now()}-${file.name}`;
+            const ref = storage.ref().child(caminho);
+            await ref.put(file);
+            data.imagem = await ref.getDownloadURL();
+          } else {
+            data.imagem = urlInput ? urlInput.value.trim() : "";
+          }
+
+          if (id) {
+            await db
+              .collection("produtos")
+              .doc(id)
+              .update({
+                ...data,
+                atualizadoEm: firebase.firestore.FieldValue.serverTimestamp(),
+              });
+          } else {
+            await db.collection("produtos").add({
+              ...data,
+              criadoEm: firebase.firestore.FieldValue.serverTimestamp(),
+            });
+          }
+
+          showToast("✅ Item salvo com sucesso!");
+          closeModal();
+        } catch (err) {
+          console.error(err);
+          showToast("Erro ao salvar: " + err.message);
+        } finally {
+          saveBtn.textContent = "Salvar";
+          saveBtn.disabled = false;
+        }
+      });
+
+      document.querySelectorAll("[data-open-modal]").forEach((btn) => {
+        btn.addEventListener("click", () => openModal());
+      });
+
+      document
+        .getElementById("produtos-lista")
+        .addEventListener("click", async (e) => {
+          if (e.target.closest("[data-edit]")) {
+            const id = e.target.closest("[data-edit]").dataset.edit;
+            const doc = await db.collection("produtos").doc(id).get();
+            if (doc.exists) openModal(id, doc.data());
+          }
+          if (e.target.closest("[data-del]")) {
+            if (confirm("Excluir este item?")) {
+              await db
+                .collection("produtos")
+                .doc(e.target.closest("[data-del]").dataset.del)
+                .delete();
+              showToast("Item excluído!");
+            }
+          }
+        });
+
+      async function carregarConfig() {
+        try {
+          const doc = await db.collection("config").doc("loja").get();
+          if (doc.exists) {
+            const d = doc.data();
+            document.getElementById("cfgWhatsapp").value = d.whatsapp || "";
+            document.getElementById("cfgHorario").value = d.horario || "";
+            document.getElementById("cfgEntrega").value = d.entrega || "";
+          }
+        } catch (err) {
+          console.error(err);
+        }
+      }
+
+      document
+        .getElementById("config-form")
+        .addEventListener("submit", async (e) => {
+          e.preventDefault();
+          try {
+            await db
+              .collection("config")
+              .doc("loja")
+              .set(
+                {
+                  whatsapp: document.getElementById("cfgWhatsapp").value.trim(),
+                  horario: document.getElementById("cfgHorario").value.trim(),
+                  entrega: document.getElementById("cfgEntrega").value.trim(),
+                  atualizadoEm: firebase.firestore.FieldValue.serverTimestamp(),
+                },
+                { merge: true },
+              );
+            showToast("Configurações salvas!");
+          } catch (err) {
+            showToast("Erro ao salvar configurações.");
+          }
+        });
+    </script>
+  </body>
+</html>
