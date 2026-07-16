@@ -16,16 +16,17 @@
     />
     <style>
       :root {
-        --carvao: #0f0a07;
-        --carvao-claro: #1c1612;
-        --brasa: #ff4d2d;
-        --brasa-clara: #ff6b4a;
-        --crosta: #f4a15f;
-        --creme: #fff8ee;
-        --creme-suave: #d4b8a0;
-        --raio: 20px;
+        --carvao: #17110e;
+        --carvao-claro: #241a15;
+        --brasa: #ff6b35;
+        --brasa-clara: #ff8a5c;
+        --crosta: #e8a33d;
+        --creme: #fff4e8;
+        --creme-suave: #d8c7ba;
+        --vermelho: #7a2e1f;
+        --raio: 18px;
+        --sombra: 0 16px 40px -12px rgba(0, 0, 0, 0.5);
       }
-
       * {
         margin: 0;
         padding: 0;
@@ -34,333 +35,347 @@
       html {
         scroll-behavior: smooth;
       }
-
       body {
-        font-family: "Inter", sans-serif;
+        font-family: "Work Sans", sans-serif;
         background: var(--carvao);
         color: var(--creme);
         line-height: 1.6;
         overflow-x: hidden;
       }
-
-      .container {
-        width: min(1280px, 92%);
-        margin: 0 auto;
+      img {
+        max-width: 100%;
+        display: block;
       }
-
-      /* =============== HEADER =============== */
+      .container {
+        width: min(1100px, 92%);
+        margin: auto;
+      }
+      .brilho-brasa {
+        position: relative;
+      }
+      .brilho-brasa::after {
+        content: "";
+        position: absolute;
+        left: 50%;
+        bottom: -6px;
+        transform: translateX(-50%);
+        width: 70%;
+        height: 10px;
+        background: var(--brasa);
+        filter: blur(10px);
+        opacity: 0.55;
+        border-radius: 50%;
+        animation: pulsar-brasa 2.6s ease-in-out infinite;
+      }
+      @keyframes pulsar-brasa {
+        0%,
+        100% {
+          opacity: 0.35;
+          transform: translateX(-50%) scale(0.94);
+        }
+        50% {
+          opacity: 0.65;
+          transform: translateX(-50%) scale(1.05);
+        }
+      }
       header {
         position: sticky;
         top: 0;
         z-index: 100;
-        background: rgba(15, 10, 7, 0.95);
-        backdrop-filter: blur(16px);
-        border-bottom: 1px solid rgba(255, 77, 45, 0.15);
+        background: rgba(23, 17, 14, 0.92);
+        backdrop-filter: blur(8px);
+        border-bottom: 1px solid rgba(255, 107, 53, 0.2);
       }
-
       .header-inner {
         display: flex;
         align-items: center;
         justify-content: space-between;
-        height: 76px;
+        height: 66px;
       }
-
       .logo {
         font-family: "Anton", sans-serif;
-        font-size: 1.65rem;
-        letter-spacing: 0.5px;
+        font-size: 1.3rem;
+        text-transform: uppercase;
         color: var(--creme);
         text-decoration: none;
+        letter-spacing: 0.02em;
       }
-
       .logo span {
         color: var(--brasa);
       }
-
       .btn-carrinho-topo {
         display: flex;
         align-items: center;
-        gap: 10px;
+        gap: 8px;
+        border: 1px solid black;
         background: var(--brasa);
-        color: #111;
+        color: var(--carvao);
         font-weight: 700;
-        padding: 12px 20px;
-        border-radius: 9999px;
-        font-size: 0.95rem;
-        transition: all 0.3s ease;
-        border: none;
+        font-size: 0.9rem;
+        padding: 10px 16px;
+        border-radius: 999px;
       }
-
       .btn-carrinho-topo:hover {
-        transform: translateY(-4px);
-        box-shadow: 0 20px 40px -10px rgba(255, 77, 45, 0.5);
+        cursor: pointer;
+        transform: translateY(-3px);
+        box-shadow: 0 14px 30px -8px rgba(255, 107, 53, 0.55);
+        transition: 0.3s;
       }
-
-      /* =============== HERO =============== */
+      #contadorCarrinho {
+        background: var(--carvao);
+        color: var(--brasa);
+        font-size: 0.75rem;
+        font-weight: 700;
+        width: 20px;
+        height: 20px;
+        border-radius: 50%;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+      }
       .hero {
-        padding: 100px 0 90px;
-        position: relative;
+        padding: 64px 0 56px;
         text-align: center;
-        overflow: hidden;
+        position: relative;
       }
-
       .hero::before {
         content: "";
         position: absolute;
         inset: 0;
         background: radial-gradient(
-          circle at 50% 30%,
-          rgba(255, 77, 45, 0.22),
+          ellipse 60% 50% at 50% 0%,
+          rgba(255, 107, 53, 0.18),
           transparent 70%
         );
         z-index: 0;
       }
-
+      .hero .container {
+        margin: 20px auto;
+        position: relative;
+        z-index: 1;
+      }
       .hero .tag {
-        display: inline-flex;
-        align-items: center;
-        gap: 8px;
-        font-size: 0.82rem;
+        display: inline-block;
+        font-size: 0.78rem;
         font-weight: 600;
-        letter-spacing: 2px;
+        letter-spacing: 0.12em;
         text-transform: uppercase;
         color: var(--crosta);
-        background: rgba(244, 161, 95, 0.1);
-        padding: 8px 20px;
-        border-radius: 9999px;
-        margin-bottom: 20px;
+        margin-bottom: 18px;
       }
-
       .hero h1 {
-        font-family: "Anton", sans-serif;
-        font-size: clamp(2.8rem, 8vw, 4.8rem);
-        line-height: 1.05;
-        margin-bottom: 20px;
-        font-weight: 400;
+        font-size: clamp(2.1rem, 7vw, 3.6rem);
+        margin-bottom: 18px;
       }
-
       .hero h1 em {
         font-style: normal;
         color: var(--brasa);
-        position: relative;
       }
-
       .hero p {
-        font-size: 1.1rem;
+        font-size: 1rem;
         color: var(--creme-suave);
-        max-width: 520px;
-        margin: 0 auto 40px;
+        max-width: 480px;
+        margin: 0 auto 30px;
       }
-
-      .botao-principal {
-        background: linear-gradient(90deg, var(--brasa), #ff8a5c);
-        color: #111;
-        padding: 18px 38px;
-        font-size: 1.1rem;
-        font-weight: 700;
-        border-radius: 9999px;
-        text-decoration: none;
+      .botao {
         display: inline-flex;
         align-items: center;
-        gap: 12px;
-        transition: all 0.4s ease;
-        box-shadow: 0 15px 35px -10px rgba(255, 77, 45, 0.4);
+        justify-content: center;
+        gap: 8px;
+        padding: 15px 30px;
+        border-radius: 999px;
+        font-weight: 700;
+        font-size: 0.98rem;
+        transition: all 0.3s ease;
       }
-
+      .botao-principal {
+        text-decoration: none;
+        background: var(--brasa);
+        color: var(--carvao);
+        margin: 3%;
+      }
       .botao-principal:hover {
-        transform: translateY(-6px) scale(1.03);
-        box-shadow: 0 25px 50px -10px rgba(255, 77, 45, 0.55);
+        transform: translateY(-4px);
+        box-shadow: 0 14px 30px -8px rgba(255, 107, 53, 0.55);
       }
-
-      /* =============== CARDÁPIO =============== */
+      .info-rapida {
+        display: flex;
+        justify-content: center;
+        gap: 22px;
+        flex-wrap: wrap;
+        font-size: 0.85rem;
+        color: var(--creme-suave);
+        margin-top: 6px;
+      }
       .cardapio {
-        padding: 80px 0;
-        background: var(--carvao-claro);
+        padding: 50px 0 80px;
       }
-
-      .cardapio-cabecalho h2 {
-        font-size: clamp(2.2rem, 5vw, 3.2rem);
+      .cardapio-cabecalho {
         text-align: center;
-        margin-bottom: 40px;
-        font-family: "Anton", sans-serif;
+        margin-bottom: 30px;
       }
-
-      /* =============== CATEGORIAS =============== */
+      .cardapio-cabecalho h2 {
+        font-size: clamp(1.8rem, 4vw, 2.5rem);
+        margin-bottom: 8px;
+      }
       .categorias {
         display: flex;
-        gap: 12px;
-        flex-wrap: wrap;
-        padding-bottom: 20px;
-        margin-bottom: 40px;
-        justify-content: center;
+        gap: 10px;
+        overflow-x: auto;
+        padding-bottom: 8px;
+        margin-bottom: 28px;
+        scrollbar-width: none;
       }
-
+      .categorias::-webkit-scrollbar {
+        display: none;
+      }
       .categoria-btn {
         flex-shrink: 0;
-        padding: 13px 24px;
-        background: rgba(255, 255, 255, 0.04);
-        border: 1px solid rgba(255, 255, 255, 0.1);
+        background: var(--carvao-claro);
+        border: 1px solid rgba(255, 244, 232, 0.12);
         color: var(--creme-suave);
         font-weight: 600;
-        font-size: 0.95rem;
-        border-radius: 9999px;
-        white-space: nowrap;
-        transition: all 0.4s ease;
+        font-size: 0.85rem;
+        padding: 10px 18px;
+        border-radius: 999px;
+        transition: all 0.3s ease;
       }
       .categoria-btn.ativa {
         background: var(--brasa);
-        color: #111;
+        color: var(--carvao);
         border-color: var(--brasa);
-        padding: 13px 30px;
-        font-weight: 700;
-        box-shadow: 0 10px 25px -8px rgba(255, 77, 45, 0.45);
-        transform: scale(1.05);
       }
-
-      .categoria-btn:hover:not(.ativa) {
-        background: rgba(255, 77, 45, 0.15);
-        border-color: rgba(255, 77, 45, 0.4);
-        transform: translateY(-2px);
-      }
-      .categorias {
-        justify-content: center; /* Centraliza os botões */
-        flex-wrap: wrap;
-        gap: 16px;
-      }
-
-      @media (max-width: 640px) {
-        .categoria-btn {
-          padding: 11px 20px;
-          font-size: 0.9rem;
-        }
-
-        .categoria-btn.ativa {
-          padding: 11px 26px;
-        }
-      }
-
       .cardapio-grid {
         display: grid;
-        grid-template-columns: repeat(auto-fit, minmax(340px, 1fr));
-        gap: 24px;
+        grid-template-columns: 1fr;
+        gap: 18px;
       }
-
-      /* =============== SEÇÃO INFO =============== */
+      .item-card {
+        display: flex;
+        gap: 16px;
+        background: var(--carvao-claro);
+        border: 1px solid rgba(255, 244, 232, 0.08);
+        border-radius: var(--raio);
+        padding: 16px;
+        transition: all 0.3s ease;
+      }
+      .item-card:hover {
+        border-color: rgba(255, 107, 53, 0.4);
+        transform: translateY(-6px);
+      }
+      .item-foto {
+        width: 92px;
+        height: 92px;
+        border-radius: 12px;
+        flex-shrink: 0;
+        overflow: hidden;
+        background: linear-gradient(135deg, var(--vermelho), var(--carvao));
+      }
+      .item-foto img {
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+        transition: transform 0.4s ease;
+      }
+      .item-card:hover .item-foto img {
+        transform: scale(1.08);
+      }
+      .item-info {
+        flex: 1;
+        display: flex;
+        flex-direction: column;
+      }
+      .item-info h3 {
+        font-family: "Work Sans", sans-serif;
+        text-transform: none;
+        font-size: 1.02rem;
+        font-weight: 700;
+        margin-bottom: 4px;
+      }
+      .item-info p {
+        font-size: 0.85rem;
+        color: var(--creme-suave);
+        flex: 1;
+        margin-bottom: 10px;
+      }
+      .item-rodape {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+      }
+      .item-preco {
+        font-weight: 700;
+        color: var(--crosta);
+        font-size: 1rem;
+      }
+      .btn-add {
+        background: var(--brasa);
+        color: var(--carvao);
+        font-weight: 700;
+        font-size: 0.85rem;
+        padding: 8px 16px;
+        border-radius: 999px;
+      }
+      .qtd-controle {
+        display: flex;
+        align-items: center;
+        gap: 10px;
+        background: var(--carvao);
+        border-radius: 999px;
+        padding: 4px 6px;
+      }
+      .qtd-controle button {
+        background: transparent;
+        color: var(--brasa);
+        font-size: 1.1rem;
+        font-weight: 700;
+        width: 26px;
+        height: 26px;
+      }
       .info {
-        padding: 90px 0;
+        padding: 60px 0;
         background: var(--carvao-claro);
       }
-
       .info-grid {
         display: grid;
         grid-template-columns: 1fr;
-        gap: 24px;
+        gap: 20px;
       }
-
       .info-item {
-        background: rgba(15, 10, 7, 0.85);
-        border: 1px solid rgba(255, 77, 45, 0.12);
+        background: var(--carvao);
         border-radius: var(--raio);
-        padding: 32px 28px;
-        text-align: center;
-        transition: all 0.4s ease;
-        backdrop-filter: blur(10px);
+        padding: 26px;
+        border: 1px solid rgba(255, 244, 232, 0.08);
       }
-
-      .info-item:hover {
-        transform: translateY(-8px);
-        border-color: var(--brasa);
-        box-shadow: 0 25px 50px -15px rgba(255, 77, 45, 0.2);
-      }
-
-      .info-item .icone {
-        font-size: 2.8rem;
-        margin-bottom: 16px;
-        display: block;
-      }
-
-      .info-item h3 {
-        font-size: 1.35rem;
-        margin-bottom: 12px;
-        color: var(--crosta);
-      }
-
-      .info-item p {
-        color: var(--creme-suave);
-        line-height: 1.7;
-      }
-
-      /* Responsivo - 2 colunas em tablets */
-      @media (min-width: 640px) {
-        .info-grid {
-          grid-template-columns: repeat(2, 1fr);
-        }
-      }
-
-      /* 3 colunas em telas grandes */
-      @media (min-width: 992px) {
-        .info-grid {
-          grid-template-columns: repeat(3, 1fr);
-        }
-      }
-
-      .item-info {
-        padding: 24px;
-      }
-
-      .item-info h3 {
-        font-size: 1.35rem;
-        margin-bottom: 8px;
-      }
-
-      .item-preco {
-        font-size: 1.4rem;
-        font-weight: 700;
-        color: var(--crosta);
-      }
-
-      .btn-add {
-        background: var(--brasa);
-        color: #111;
-        font-weight: 700;
-        padding: 10px 24px;
-        border-radius: 9999px;
-      }
-
-      /* =============== CARRINHO =============== */
       .overlay-carrinho {
         position: fixed;
         inset: 0;
-        background: rgba(0, 0, 0, 0.7);
-        backdrop-filter: blur(8px);
+        background: rgba(0, 0, 0, 0.55);
         z-index: 200;
         opacity: 0;
         pointer-events: none;
-        transition: 0.4s;
+        transition: opacity 0.3s ease;
       }
-
       .overlay-carrinho.aberto {
         opacity: 1;
         pointer-events: auto;
       }
-
       .gaveta-carrinho {
         position: fixed;
         top: 0;
         right: 0;
         bottom: 0;
-        width: min(420px, 100%);
-        background: #1c1612;
+        width: min(400px, 100%);
+        background: var(--carvao-claro);
         z-index: 201;
         transform: translateX(100%);
-        transition: transform 0.45s cubic-bezier(0.32, 0.72, 0, 1);
-        box-shadow: -20px 0 60px -20px rgba(0, 0, 0, 0.6);
+        transition: transform 0.35s ease;
+        display: flex;
+        flex-direction: column;
       }
-
       .gaveta-carrinho.aberto {
         transform: translateX(0);
       }
-
       .gaveta-topo {
         display: flex;
         align-items: center;
@@ -379,6 +394,29 @@
         flex: 1;
         overflow-y: auto;
         padding: 12px 20px;
+      }
+      .gaveta-campos {
+        padding: 0 20px 12px;
+        display: flex;
+        flex-direction: column;
+        gap: 10px;
+      }
+      .gaveta-campos label {
+        font-size: 0.8rem;
+        color: var(--creme-suave);
+        font-weight: 600;
+      }
+      .gaveta-campos input,
+      .gaveta-campos select {
+        width: 100%;
+        background: var(--carvao);
+        border: 1px solid rgba(255, 244, 232, 0.15);
+        color: var(--creme);
+        padding: 10px 12px;
+        border-radius: 10px;
+        font-family: inherit;
+        font-size: 0.9rem;
+        margin-top: 4px;
       }
       .gaveta-rodape {
         padding: 20px;
@@ -414,10 +452,16 @@
         font-size: 1rem;
         padding: 16px;
         border-radius: 999px;
+        border: none;
+        cursor: pointer;
       }
       .btn-finalizar:hover {
         box-shadow: 0 14px 30px -8px rgba(255, 107, 53, 0.55);
         transform: 0.3s;
+      }
+      .btn-finalizar:disabled {
+        opacity: 0.5;
+        cursor: not-allowed;
       }
       .fab-carrinho {
         position: fixed;
@@ -609,13 +653,32 @@
           Seu carrinho está vazio. Adicione algo do cardápio!
         </p>
       </div>
+      <div class="gaveta-campos">
+        <div>
+          <label for="campoEndereco">Endereço de entrega</label>
+          <input
+            type="text"
+            id="campoEndereco"
+            placeholder="Rua, número, bairro"
+          />
+        </div>
+        <div>
+          <label for="campoPagamento">Forma de pagamento</label>
+          <select id="campoPagamento">
+            <option value="">Selecione...</option>
+            <option value="Pix">Pix</option>
+            <option value="Cartão na entrega">Cartão na entrega</option>
+            <option value="Dinheiro">Dinheiro</option>
+          </select>
+        </div>
+      </div>
       <div class="gaveta-rodape">
         <div class="gaveta-subtotal">
           <span>Subtotal</span>
           <span id="subtotalValor">R$ 0,00</span>
         </div>
         <button class="btn-finalizar" id="btnFinalizar" disabled>
-          Finalizar pedido no WhatsApp
+          Finalizar pedido
         </button>
       </div>
     </aside>
@@ -638,7 +701,6 @@
       };
       firebase.initializeApp(firebaseConfig);
       const db = firebase.firestore();
-      const NUMERO_WHATSAPP = "5599999999999";
 
       let carrinho = {};
       let cardapioCache = [];
@@ -821,17 +883,59 @@
         document.getElementById("gavetaCarrinho").classList.remove("aberto");
       }
 
-      document.getElementById("btnFinalizar").addEventListener("click", () => {
-        const entradas = Object.entries(carrinho);
-        if (entradas.length === 0) return;
-        let msg = "Olá! Quero fazer o seguinte pedido:%0A%0A";
-        entradas.forEach(([, item]) => {
-          msg += `• ${item.qtd}x ${item.titulo} — ${formatarPreco(item.preco * item.qtd)}%0A`;
+      // Finaliza o pedido enviando direto pro backend (Netlify Function),
+      // que dispara pro WhatsApp da loja via CallMeBot.
+      // O cliente não vê nem edita o texto que chega no WhatsApp.
+      document
+        .getElementById("btnFinalizar")
+        .addEventListener("click", async () => {
+          const entradas = Object.entries(carrinho);
+          if (entradas.length === 0) return;
+
+          const btn = document.getElementById("btnFinalizar");
+          const textoOriginal = btn.textContent;
+          btn.disabled = true;
+          btn.textContent = "Enviando...";
+
+          const itensPayload = entradas.map(([, item]) => ({
+            titulo: item.titulo,
+            preco: item.preco,
+            qtd: item.qtd,
+          }));
+
+          const endereco = document.getElementById("campoEndereco").value.trim();
+          const pagamento = document.getElementById("campoPagamento").value;
+
+          try {
+            const resposta = await fetch("/.netlify/functions/enviar-pedido", {
+              method: "POST",
+              headers: { "Content-Type": "application/json" },
+              body: JSON.stringify({
+                itens: itensPayload,
+                subtotal: calcularSubtotal(),
+                endereco,
+                pagamento,
+              }),
+            });
+
+            const resultado = await resposta.json();
+            if (!resultado.sucesso) throw new Error();
+
+            carrinho = {};
+            salvarCarrinhoLocal();
+            renderizarCardapio();
+            atualizarUiCarrinho();
+            fecharCarrinho();
+            document.getElementById("campoEndereco").value = "";
+            document.getElementById("campoPagamento").value = "";
+            alert("Pedido enviado com sucesso! Em breve entraremos em contato. 🍔");
+          } catch (erro) {
+            alert("Não foi possível enviar o pedido. Tente novamente em instantes.");
+          } finally {
+            btn.disabled = false;
+            btn.textContent = textoOriginal;
+          }
         });
-        msg += `%0A*Subtotal: ${formatarPreco(calcularSubtotal())}*%0A%0A`;
-        msg += "Endereço:%0AForma de pagamento:%0A";
-        window.open(`https://wa.me/${NUMERO_WHATSAPP}?text=${msg}`, "_blank");
-      });
 
       // Inicialização
       document
