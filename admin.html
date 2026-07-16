@@ -333,6 +333,10 @@
         color: var(--carvao);
         font-weight: 700;
       }
+      .btn-save:disabled {
+        opacity: 0.6;
+        cursor: not-allowed;
+      }
       #toast {
         position: fixed;
         bottom: 24px;
@@ -504,7 +508,6 @@
     <script src="https://www.gstatic.com/firebasejs/10.13.1/firebase-app-compat.js"></script>
     <script src="https://www.gstatic.com/firebasejs/10.13.1/firebase-auth-compat.js"></script>
     <script src="https://www.gstatic.com/firebasejs/10.13.1/firebase-firestore-compat.js"></script>
-    <script src="https://www.gstatic.com/firebasejs/10.13.1/firebase-storage-compat.js"></script>
     <script>
       const firebaseConfig = {
         apiKey: "AIzaSyAD71P1qy1SngP5TJIknJtNSS-S1bvC-LE",
@@ -517,7 +520,29 @@
       firebase.initializeApp(firebaseConfig);
       const auth = firebase.auth();
       const db = firebase.firestore();
-      const storage = firebase.storage();
+
+      // ===== CONFIG DO IMGBB =====
+      // Troque pela sua API key gratuita (pega em https://api.imgbb.com/)
+      const IMGBB_API_KEY = "556a2ec8f8110365c14f671428bd4a46";
+
+      async function uploadParaImgBB(file) {
+        const formData = new FormData();
+        formData.append("image", file);
+        const resposta = await fetch(
+          `https://api.imgbb.com/1/upload?key=${IMGBB_API_KEY}`,
+          {
+            method: "POST",
+            body: formData,
+          },
+        );
+        const resultado = await resposta.json();
+        if (!resultado.success) {
+          throw new Error(
+            resultado.error?.message || "Falha ao enviar imagem para o ImgBB",
+          );
+        }
+        return resultado.data.url;
+      }
 
       function showToast(msg) {
         const t = document.getElementById("toast");
@@ -688,6 +713,7 @@
               <input type="text" id="f-imagem" value="${val}" placeholder="Cole o link da imagem" />
               <p style="font-size:12px; margin:8px 0 4px; color:var(--creme-suave);">ou envie do computador:</p>
               <input type="file" id="f-imagem-file" accept="image/*" />
+              <p id="f-imagem-status" style="font-size:12px; margin-top:4px; color:var(--crosta); display:none;"></p>
               <img id="f-imagem-preview" src="${val}" style="width:100%; max-height:160px; object-fit:cover; border-radius:10px; margin-top:8px; display:${val ? "block" : "none"};" />`;
             }
             return `<label>${c.label}</label><input type="${c.type}" id="f-${c.id}" value="${val}" ${c.required ? "required" : ""} />`;
@@ -698,6 +724,19 @@
             <button type="submit" class="btn-save" id="modal-save-btn">Salvar</button>
           </div>`;
         overlay.classList.add("open");
+
+        // Preview ao escolher arquivo do computador
+        const fileInput = document.getElementById("f-imagem-file");
+        const preview = document.getElementById("f-imagem-preview");
+        if (fileInput) {
+          fileInput.addEventListener("change", () => {
+            const file = fileInput.files[0];
+            if (file) {
+              preview.src = URL.createObjectURL(file);
+              preview.style.display = "block";
+            }
+          });
+        }
       }
 
       function closeModal() {
@@ -724,19 +763,23 @@
         const saveBtn = document.getElementById("modal-save-btn");
         const file = document.getElementById("f-imagem-file").files[0];
         const urlInput = document.getElementById("f-imagem");
+        const statusEl = document.getElementById("f-imagem-status");
 
-        saveBtn.textContent = "Salvando...";
         saveBtn.disabled = true;
 
         try {
           if (file) {
-            const caminho = `cardapio/${Date.now()}-${file.name}`;
-            const ref = storage.ref().child(caminho);
-            await ref.put(file);
-            data.imagem = await ref.getDownloadURL();
+            saveBtn.textContent = "Enviando imagem...";
+            if (statusEl) {
+              statusEl.style.display = "block";
+              statusEl.textContent = "Enviando imagem para o ImgBB...";
+            }
+            data.imagem = await uploadParaImgBB(file);
           } else {
             data.imagem = urlInput ? urlInput.value.trim() : "";
           }
+
+          saveBtn.textContent = "Salvando...";
 
           if (id) {
             await db
