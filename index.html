@@ -14,7 +14,6 @@
       href="https://fonts.googleapis.com/css2?family=Anton&family=Work+Sans:wght@400;500;600;700&display=swap"
       rel="stylesheet"
     />
-
     <style>
       :root {
         --carvao: #17110e;
@@ -28,7 +27,6 @@
         --raio: 18px;
         --sombra: 0 16px 40px -12px rgba(0, 0, 0, 0.5);
       }
-
       * {
         margin: 0;
         padding: 0;
@@ -37,7 +35,6 @@
       html {
         scroll-behavior: smooth;
       }
-
       body {
         font-family: "Work Sans", sans-serif;
         background: var(--carvao);
@@ -45,17 +42,14 @@
         line-height: 1.6;
         overflow-x: hidden;
       }
-
       img {
         max-width: 100%;
         display: block;
       }
-
       .container {
         width: min(1100px, 92%);
         margin: auto;
       }
-
       .brilho-brasa {
         position: relative;
       }
@@ -84,7 +78,6 @@
           transform: translateX(-50%) scale(1.05);
         }
       }
-
       header {
         position: sticky;
         top: 0;
@@ -109,7 +102,6 @@
       .logo span {
         color: var(--brasa);
       }
-
       .btn-carrinho-topo {
         display: flex;
         align-items: center;
@@ -133,7 +125,6 @@
         align-items: center;
         justify-content: center;
       }
-
       .hero {
         padding: 64px 0 56px;
         text-align: center;
@@ -186,19 +177,16 @@
         border-radius: 999px;
         font-weight: 700;
         font-size: 0.98rem;
-        transition:
-          transform 0.25s ease,
-          box-shadow 0.25s ease;
+        transition: all 0.3s ease;
       }
       .botao-principal {
         background: var(--brasa);
         color: var(--carvao);
       }
       .botao-principal:hover {
-        transform: translateY(-2px);
+        transform: translateY(-4px);
         box-shadow: 0 14px 30px -8px rgba(255, 107, 53, 0.55);
       }
-
       .info-rapida {
         display: flex;
         justify-content: center;
@@ -208,7 +196,6 @@
         color: var(--creme-suave);
         margin-top: 6px;
       }
-
       .cardapio {
         padding: 50px 0 80px;
       }
@@ -220,7 +207,6 @@
         font-size: clamp(1.8rem, 4vw, 2.5rem);
         margin-bottom: 8px;
       }
-
       .categorias {
         display: flex;
         gap: 10px;
@@ -232,7 +218,6 @@
       .categorias::-webkit-scrollbar {
         display: none;
       }
-
       .categoria-btn {
         flex-shrink: 0;
         background: var(--carvao-claro);
@@ -242,14 +227,13 @@
         font-size: 0.85rem;
         padding: 10px 18px;
         border-radius: 999px;
-        transition: 0.25s ease;
+        transition: all 0.3s ease;
       }
       .categoria-btn.ativa {
         background: var(--brasa);
         color: var(--carvao);
         border-color: var(--brasa);
       }
-
       .cardapio-grid {
         display: grid;
         grid-template-columns: 1fr;
@@ -262,13 +246,11 @@
         border: 1px solid rgba(255, 244, 232, 0.08);
         border-radius: var(--raio);
         padding: 16px;
-        transition:
-          border-color 0.25s ease,
-          transform 0.25s ease;
+        transition: all 0.3s ease;
       }
       .item-card:hover {
         border-color: rgba(255, 107, 53, 0.4);
-        transform: translateY(-2px);
+        transform: translateY(-6px);
       }
       .item-foto {
         width: 92px;
@@ -282,6 +264,10 @@
         width: 100%;
         height: 100%;
         object-fit: cover;
+        transition: transform 0.4s ease;
+      }
+      .item-card:hover .item-foto img {
+        transform: scale(1.08);
       }
       .item-info {
         flex: 1;
@@ -319,7 +305,6 @@
         padding: 8px 16px;
         border-radius: 999px;
       }
-
       .qtd-controle {
         display: flex;
         align-items: center;
@@ -336,7 +321,6 @@
         width: 26px;
         height: 26px;
       }
-
       .info {
         padding: 60px 0;
         background: var(--carvao-claro);
@@ -352,7 +336,6 @@
         padding: 26px;
         border: 1px solid rgba(255, 244, 232, 0.08);
       }
-
       .overlay-carrinho {
         position: fixed;
         inset: 0;
@@ -366,7 +349,6 @@
         opacity: 1;
         pointer-events: auto;
       }
-
       .gaveta-carrinho {
         position: fixed;
         top: 0;
@@ -383,7 +365,6 @@
       .gaveta-carrinho.aberto {
         transform: translateX(0);
       }
-
       .gaveta-topo {
         display: flex;
         align-items: center;
@@ -396,7 +377,6 @@
         overflow-y: auto;
         padding: 12px 20px;
       }
-
       .gaveta-rodape {
         padding: 20px;
         border-top: 1px solid rgba(255, 244, 232, 0.1);
@@ -408,6 +388,21 @@
         font-size: 1.1rem;
         margin-bottom: 16px;
       }
+      .gaveta-item-remover {
+        background: #e5484d;
+        color: white;
+        border: none;
+        padding: 6px 16px;
+        border-radius: 999px;
+        font-size: 0.85rem;
+        cursor: pointer;
+        transition: all 0.3s ease;
+      }
+
+      .gaveta-item-remover:hover {
+        background: #ff5555;
+        transform: scale(1.08);
+      }
       .btn-finalizar {
         width: 100%;
         background: var(--brasa);
@@ -417,7 +412,6 @@
         padding: 16px;
         border-radius: 999px;
       }
-
       .fab-carrinho {
         position: fixed;
         bottom: 20px;
@@ -438,7 +432,6 @@
       .fab-carrinho.visivel {
         transform: translateY(0);
       }
-
       footer {
         background: #0e0a08;
         padding: 44px 0 24px;
@@ -450,13 +443,25 @@
         gap: 16px;
         margin-bottom: 22px;
       }
-
       @media (min-width: 640px) {
         .cardapio-grid {
           grid-template-columns: repeat(2, 1fr);
         }
         .info-grid {
           grid-template-columns: repeat(3, 1fr);
+        }
+      }
+      /* Mobile First - Responsividade extra */
+      @media (max-width: 480px) {
+        .hero {
+          padding: 4rem 0 3rem;
+        }
+        .item-card {
+          flex-direction: column;
+        }
+        .item-foto {
+          width: 100%;
+          height: 180px;
         }
       }
     </style>
@@ -470,7 +475,6 @@
         </button>
       </div>
     </header>
-
     <main id="topo">
       <section class="hero">
         <div class="container">
@@ -489,14 +493,12 @@
           </div>
         </div>
       </section>
-
       <section class="cardapio" id="cardapio">
         <div class="container">
           <div class="cardapio-cabecalho">
             <h2>Cardápio</h2>
             <p>Toque em "+" pra adicionar ao carrinho</p>
           </div>
-
           <div class="categorias" id="categorias">
             <button class="categoria-btn ativa" data-categoria="todos">
               Todos
@@ -514,7 +516,6 @@
               Sobremesas
             </button>
           </div>
-
           <div class="cardapio-grid" id="cardapioGrid">
             <p
               style="
@@ -530,7 +531,6 @@
           </div>
         </div>
       </section>
-
       <section class="info">
         <div class="container">
           <div class="info-grid">
@@ -556,7 +556,6 @@
         </div>
       </section>
     </main>
-
     <footer>
       <div class="container">
         <a href="#topo" class="logo">Brasas <span>Burger</span></a>
@@ -598,7 +597,6 @@
         </button>
       </div>
     </aside>
-
     <button class="fab-carrinho" id="fabCarrinho">
       🛒 <span id="fabTexto">Ver pedido</span>
       <span class="fab-bolha" id="fabBolha">0</span>
@@ -607,7 +605,6 @@
     <!-- Firebase -->
     <script src="https://www.gstatic.com/firebasejs/10.13.1/firebase-app-compat.js"></script>
     <script src="https://www.gstatic.com/firebasejs/10.13.1/firebase-firestore-compat.js"></script>
-
     <script>
       const firebaseConfig = {
         apiKey: "AIzaSyAD71P1qy1SngP5TJIknJtNSS-S1bvC-LE",
@@ -617,11 +614,9 @@
         messagingSenderId: "812502254666",
         appId: "1:812502254666:web:d6f53f291e4776098d92b3",
       };
-
       firebase.initializeApp(firebaseConfig);
       const db = firebase.firestore();
-
-      const NUMERO_WHATSAPP = "5599999999999"; // ← MUDE PARA O NÚMERO REAL
+      const NUMERO_WHATSAPP = "5599981502997";
 
       let carrinho = {};
       let cardapioCache = [];
@@ -652,7 +647,6 @@
       function carregarCardapio() {
         const grid = document.getElementById("cardapioGrid");
         const loading = document.getElementById("loadingCardapio");
-
         db.collection("produtos")
           .orderBy("criadoEm", "desc")
           .onSnapshot(
@@ -662,7 +656,6 @@
                 id: doc.id,
                 ...doc.data(),
               }));
-
               if (cardapioCache.length === 0) {
                 grid.innerHTML = `<p style="grid-column:1/-1;text-align:center;padding:60px 20px;color:var(--creme-suave);">Nenhum item no cardápio ainda.</p>`;
                 return;
@@ -682,12 +675,10 @@
           categoriaAtiva === "todos"
             ? cardapioCache
             : cardapioCache.filter((p) => p.categoria === categoriaAtiva);
-
         if (itens.length === 0) {
           grid.innerHTML = `<p style="grid-column:1/-1;text-align:center;padding:60px 20px;color:var(--creme-suave);">Nenhum item encontrado nesta categoria.</p>`;
           return;
         }
-
         grid.innerHTML = itens
           .map((p) => {
             const qtdAtual = carrinho[p.id] ? carrinho[p.id].qtd : 0;
@@ -695,11 +686,10 @@
               qtdAtual > 0
                 ? `<div class="qtd-controle"><button onclick="alterarQtd('${p.id}', -1)">−</button><span>${qtdAtual}</span><button onclick="alterarQtd('${p.id}', 1)">+</button></div>`
                 : `<button class="btn-add" onclick="alterarQtd('${p.id}', 1)">+ Adicionar</button>`;
-
             return `
           <article class="item-card">
             <div class="item-foto">
-              ${p.imagem ? `<img src="${p.imagem}" alt="${p.nome}" loading="lazy">` : '<div style="width:100%;height:100%;background:#333;border-radius:12px;"></div>'}
+              ${p.imagem ? `<img src="${p.imagem}" alt="${p.nome || ""}" loading="lazy" onerror="this.src='https://via.placeholder.com/400x400/241a15/e8a33d?text=Sem+Foto'; this.onerror=null;">` : '<div style="width:100%;height:100%;background:#333;border-radius:12px;display:flex;align-items:center;justify-content:center;color:#d8c7ba;font-size:28px;">🍔</div>'}
             </div>
             <div class="item-info">
               <h3>${p.nome}</h3>
@@ -728,10 +718,8 @@
       window.alterarQtd = function (id, delta) {
         const produto = cardapioCache.find((p) => p.id === id);
         if (!produto) return;
-
         const atual = carrinho[id] ? carrinho[id].qtd : 0;
         const nova = Math.max(0, atual + delta);
-
         if (nova === 0) delete carrinho[id];
         else
           carrinho[id] = {
@@ -739,7 +727,6 @@
             preco: produto.preco,
             qtd: nova,
           };
-
         salvarCarrinhoLocal();
         renderizarCardapio();
         atualizarUiCarrinho();
@@ -762,7 +749,6 @@
       function atualizarUiCarrinho() {
         const total = contarItens();
         const subtotal = calcularSubtotal();
-
         document.getElementById("contadorCarrinho").textContent = total;
         document.getElementById("fabBolha").textContent = total;
         document.getElementById("subtotalValor").textContent =
@@ -776,12 +762,10 @@
 
         const gavetaItens = document.getElementById("gavetaItens");
         const entradas = Object.entries(carrinho);
-
         if (entradas.length === 0) {
           gavetaItens.innerHTML = `<p class="gaveta-vazio">Seu carrinho está vazio.<br>Adicione algo do cardápio!</p>`;
           return;
         }
-
         gavetaItens.innerHTML = entradas
           .map(
             ([id, item]) => `
@@ -818,14 +802,12 @@
       document.getElementById("btnFinalizar").addEventListener("click", () => {
         const entradas = Object.entries(carrinho);
         if (entradas.length === 0) return;
-
         let msg = "Olá! Quero fazer o seguinte pedido:%0A%0A";
         entradas.forEach(([, item]) => {
           msg += `• ${item.qtd}x ${item.titulo} — ${formatarPreco(item.preco * item.qtd)}%0A`;
         });
         msg += `%0A*Subtotal: ${formatarPreco(calcularSubtotal())}*%0A%0A`;
         msg += "Endereço:%0AForma de pagamento:%0A";
-
         window.open(`https://wa.me/${NUMERO_WHATSAPP}?text=${msg}`, "_blank");
       });
 
@@ -842,7 +824,6 @@
       document
         .getElementById("overlayCarrinho")
         .addEventListener("click", fecharCarrinho);
-
       document.getElementById("anoAtual").textContent =
         new Date().getFullYear();
 

@@ -9,7 +9,6 @@
       href="https://fonts.googleapis.com/css2?family=Anton&family=Work+Sans:wght@400;500;600;700&display=swap"
       rel="stylesheet"
     />
-
     <style>
       :root {
         --carvao: #17110e;
@@ -41,7 +40,6 @@
         font-weight: 400;
         letter-spacing: 0.01em;
       }
-
       #login-screen {
         min-height: 100vh;
         display: flex;
@@ -87,7 +85,6 @@
         font-size: 13px;
         margin-top: 6px;
       }
-
       label {
         display: block;
         font-size: 13px;
@@ -113,7 +110,6 @@
         outline: 2px solid var(--brasa);
         outline-offset: 1px;
       }
-
       button {
         font-family: inherit;
         cursor: pointer;
@@ -133,7 +129,6 @@
         background: var(--brasa-clara);
         transform: translateY(-2px);
       }
-
       #app {
         display: none;
         min-height: 100vh;
@@ -166,7 +161,6 @@
         padding: 8px 14px;
         border-radius: 999px;
       }
-
       nav.tabs {
         display: flex;
         gap: 6px;
@@ -186,7 +180,6 @@
         background: var(--brasa);
         color: var(--carvao);
       }
-
       main {
         flex: 1;
         padding: 24px 20px 60px;
@@ -194,7 +187,6 @@
         margin: 0 auto;
         width: 100%;
       }
-
       .page-head {
         display: flex;
         align-items: flex-start;
@@ -219,7 +211,6 @@
         padding: 11px 20px;
         border-radius: 999px;
       }
-
       .search-box {
         width: 100%;
         max-width: 320px;
@@ -231,7 +222,6 @@
         color: var(--creme);
         font-size: 13px;
       }
-
       .lista-produtos {
         display: flex;
         flex-direction: column;
@@ -289,7 +279,6 @@
         background: var(--perigo);
         color: var(--branco);
       }
-
       .empty-state {
         text-align: center;
         padding: 60px 20px;
@@ -300,7 +289,6 @@
         display: block;
         margin-bottom: 10px;
       }
-
       .overlay {
         display: none;
         position: fixed;
@@ -345,7 +333,6 @@
         color: var(--carvao);
         font-weight: 700;
       }
-
       #toast {
         position: fixed;
         bottom: 24px;
@@ -406,12 +393,10 @@
           <div class="marca">🔥 Brasas Burger</div>
           <button class="logout-btn" id="logout-btn">Sair</button>
         </div>
-
         <nav class="tabs">
           <button data-tab="produtos" class="active">Cardápio</button>
           <button data-tab="config">Configurações</button>
         </nav>
-
         <main>
           <section id="tab-produtos" class="tab-content">
             <div class="page-head">
@@ -435,7 +420,6 @@
               Nenhum item cadastrado ainda.
             </div>
           </section>
-
           <section id="tab-config" class="tab-content" style="display: none">
             <div class="page-head">
               <div>
@@ -460,21 +444,18 @@
                   id="cfgWhatsapp"
                   placeholder="5599999999999"
                 />
-
                 <label for="cfgHorario">Horário de Funcionamento</label>
                 <input
                   type="text"
                   id="cfgHorario"
                   placeholder="Terça a Domingo, 18h às 23h"
                 />
-
                 <label for="cfgEntrega">Observação sobre Entrega</label>
                 <textarea
                   id="cfgEntrega"
                   rows="3"
                   placeholder="Taxa de entrega calculada conforme o bairro"
                 ></textarea>
-
                 <button
                   type="submit"
                   style="
@@ -517,7 +498,6 @@
         <form id="modal-form"></form>
       </div>
     </div>
-
     <div id="toast"></div>
 
     <!-- Firebase -->
@@ -525,7 +505,6 @@
     <script src="https://www.gstatic.com/firebasejs/10.13.1/firebase-auth-compat.js"></script>
     <script src="https://www.gstatic.com/firebasejs/10.13.1/firebase-firestore-compat.js"></script>
     <script src="https://www.gstatic.com/firebasejs/10.13.1/firebase-storage-compat.js"></script>
-
     <script>
       const firebaseConfig = {
         apiKey: "AIzaSyAD71P1qy1SngP5TJIknJtNSS-S1bvC-LE",
@@ -535,7 +514,6 @@
         messagingSenderId: "812502254666",
         appId: "1:812502254666:web:d6f53f291e4776098d92b3",
       };
-
       firebase.initializeApp(firebaseConfig);
       const auth = firebase.auth();
       const db = firebase.firestore();
@@ -626,7 +604,6 @@
             }));
             renderProdutos();
           });
-
         document
           .getElementById("produtos-search")
           .addEventListener("input", renderProdutos);
@@ -640,7 +617,6 @@
           .trim();
         const lista = document.getElementById("produtos-lista");
         const empty = document.getElementById("produtos-empty");
-
         const filtrados = produtosCache.filter(
           (p) => !termo || (p.data.nome || "").toLowerCase().includes(termo),
         );
@@ -656,7 +632,15 @@
           const div = document.createElement("div");
           div.className = "produto-linha";
           div.innerHTML = `
-            ${data.imagem ? `<img src="${data.imagem}" alt="">` : `<div class="sem-foto">🍔</div>`}
+            ${
+              data.imagem
+                ? `<img src="${data.imagem}" 
+                    alt="" 
+                    loading="lazy"
+                    onerror="this.style.display='none'; this.parentElement.querySelector('.sem-foto-alternativa').style.display='flex';"
+                    style="width:52px;height:52px;border-radius:10px;object-fit:cover;">`
+                : `<div class="sem-foto">🍔</div>`
+            }
             <div style="flex:1">
               <h4>${data.nome || ""}</h4>
               <span>${data.categoria || "Sem categoria"}</span>
@@ -667,6 +651,17 @@
               <button class="icon-btn danger" data-del="${id}">Excluir</button>
             </div>
           `;
+
+          // Fallback para imagem quebrada
+          if (data.imagem) {
+            const fallback = document.createElement("div");
+            fallback.className = "sem-foto-alternativa";
+            fallback.style.cssText =
+              "display:none;width:52px;height:52px;border-radius:10px;background:var(--carvao);align-items:center;justify-content:center;font-size:18px;color:var(--creme-suave);";
+            fallback.textContent = "🍔";
+            div.querySelector("img").after(fallback);
+          }
+
           lista.appendChild(div);
         });
       }
@@ -679,7 +674,6 @@
         document.getElementById("modal-title").textContent = id
           ? "Editar item"
           : "Novo item";
-
         modalForm.innerHTML =
           CAMPOS_PRODUTO.map((c) => {
             const val = existing[c.id] !== undefined ? existing[c.id] : "";
@@ -703,7 +697,6 @@
             <button type="button" class="btn-secondary" id="modal-cancel">Cancelar</button>
             <button type="submit" class="btn-save" id="modal-save-btn">Salvar</button>
           </div>`;
-
         overlay.classList.add("open");
       }
 
@@ -720,7 +713,6 @@
         e.preventDefault();
         const { id } = editState || {};
         const data = {};
-
         CAMPOS_PRODUTO.forEach((c) => {
           if (c.type === "imagem") return;
           const el = document.getElementById("f-" + c.id);
@@ -760,7 +752,6 @@
               criadoEm: firebase.firestore.FieldValue.serverTimestamp(),
             });
           }
-
           showToast("✅ Item salvo com sucesso!");
           closeModal();
         } catch (err) {
