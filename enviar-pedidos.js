@@ -11,6 +11,7 @@ exports.handler = async (event) => {
       return { statusCode: 400, body: JSON.stringify({ erro: "Carrinho vazio" }) };
     }
 
+
     // Monta o texto no backend — o cliente NUNCA tem acesso a isso
     let msg = "🍔 *NOVO PEDIDO - Brasas Burger*\n\n";
     itens.forEach((item) => {
