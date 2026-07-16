@@ -97,6 +97,7 @@
         font-size: 1.3rem;
         text-transform: uppercase;
         color: var(--creme);
+        text-decoration: none;
         letter-spacing: 0.02em;
       }
       .logo span {
@@ -106,12 +107,19 @@
         display: flex;
         align-items: center;
         gap: 8px;
+        border: 1px solid black;
         background: var(--brasa);
         color: var(--carvao);
         font-weight: 700;
         font-size: 0.9rem;
         padding: 10px 16px;
         border-radius: 999px;
+      }
+      .btn-carrinho-topo:hover {
+        cursor: pointer;
+        transform: translateY(-3px);
+        box-shadow: 0 14px 30px -8px rgba(255, 107, 53, 0.55);
+        transition: 0.3s;
       }
       #contadorCarrinho {
         background: var(--carvao);
@@ -142,6 +150,7 @@
         z-index: 0;
       }
       .hero .container {
+        margin: 20px auto;
         position: relative;
         z-index: 1;
       }
@@ -180,8 +189,10 @@
         transition: all 0.3s ease;
       }
       .botao-principal {
+        text-decoration: none;
         background: var(--brasa);
         color: var(--carvao);
+        margin: 3%;
       }
       .botao-principal:hover {
         transform: translateY(-4px);
@@ -372,6 +383,13 @@
         padding: 20px;
         border-bottom: 1px solid rgba(255, 244, 232, 0.1);
       }
+      .gaveta-topo button {
+        padding: 5px 30px;
+        border-radius: 20px;
+        background-color: #ff6b35;
+        font-size: 25px;
+        font-weight: 600;
+      }
       .gaveta-itens {
         flex: 1;
         overflow-y: auto;
@@ -412,6 +430,10 @@
         padding: 16px;
         border-radius: 999px;
       }
+      .btn-finalizar:hover {
+        box-shadow: 0 14px 30px -8px rgba(255, 107, 53, 0.55);
+        transform: 0.3s;
+      }
       .fab-carrinho {
         position: fixed;
         bottom: 20px;
@@ -442,6 +464,19 @@
         justify-content: center;
         gap: 16px;
         margin-bottom: 22px;
+      }
+      footer a {
+        text-decoration: none;
+        color: #d8c7ba;
+      }
+      footer a:hover {
+        color: #ff8a5c;
+      }
+      footer .copy,
+      .dev {
+        font-size: 14px;
+        color: #d8c7ba;
+        font-weight: 600;
       }
       @media (min-width: 640px) {
         .cardapio-grid {
@@ -497,7 +532,6 @@
         <div class="container">
           <div class="cardapio-cabecalho">
             <h2>Cardápio</h2>
-            <p>Toque em "+" pra adicionar ao carrinho</p>
           </div>
           <div class="categorias" id="categorias">
             <button class="categoria-btn ativa" data-categoria="todos">
@@ -571,7 +605,10 @@
           © <span id="anoAtual"></span> Brasas Burger. Todos os direitos
           reservados.
         </p>
-        <p class="dev">Desenvolvido por Cauan Carvalho</p>
+        <p class="dev">
+          Desenvolvido por
+          <a href="https://cauancarvalho.netlify.app">Cauan Carvalho</a>
+        </p>
       </div>
     </footer>
 
@@ -616,7 +653,7 @@
       };
       firebase.initializeApp(firebaseConfig);
       const db = firebase.firestore();
-      const NUMERO_WHATSAPP = "5599981502997";
+      const NUMERO_WHATSAPP = "5599999999999";
 
       let carrinho = {};
       let cardapioCache = [];
