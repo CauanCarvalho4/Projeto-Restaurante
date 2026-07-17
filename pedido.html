@@ -246,7 +246,7 @@
 
         document.getElementById("conteudo").innerHTML = `
           <div class="cartao">
-            <h1>Seu pedido</h1>
+            <h1>${pedido.nome ? `Olá, ${pedido.nome}!` : "Seu pedido"}</h1>
             <p class="id-pedido">Pedido #${pedido.idCurto}</p>
             <div class="etapas">${etapasHtml}</div>
           </div>
