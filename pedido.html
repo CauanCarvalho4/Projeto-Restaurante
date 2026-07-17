@@ -1,0 +1,299 @@
+<!doctype html>
+<html lang="pt-BR">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Acompanhar pedido | Brasas Burger</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Anton&family=Work+Sans:wght@400;500;600;700&display=swap"
+      rel="stylesheet"
+    />
+    <style>
+      :root {
+        --carvao: #17110e;
+        --carvao-claro: #241a15;
+        --brasa: #ff6b35;
+        --crosta: #e8a33d;
+        --creme: #fff4e8;
+        --creme-suave: #d8c7ba;
+        --verde: #4caf6f;
+        --raio: 18px;
+      }
+      * {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+      }
+      body {
+        font-family: "Work Sans", sans-serif;
+        background: var(--carvao);
+        color: var(--creme);
+        line-height: 1.6;
+        min-height: 100vh;
+        display: flex;
+        flex-direction: column;
+      }
+      .topo {
+        text-align: center;
+        padding: 32px 20px 20px;
+      }
+      .topo .logo {
+        font-family: "Anton", sans-serif;
+        font-size: 1.3rem;
+        text-transform: uppercase;
+        text-decoration: none;
+        color: var(--creme);
+      }
+      .topo .logo span {
+        color: var(--brasa);
+      }
+      main {
+        flex: 1;
+        width: min(480px, 92%);
+        margin: 0 auto;
+        padding: 20px 0 60px;
+      }
+      .cartao {
+        background: var(--carvao-claro);
+        border: 1px solid rgba(255, 244, 232, 0.08);
+        border-radius: var(--raio);
+        padding: 24px;
+        margin-bottom: 20px;
+      }
+      .cartao h1 {
+        font-size: 1.3rem;
+        margin-bottom: 4px;
+      }
+      .cartao .id-pedido {
+        font-size: 0.78rem;
+        color: var(--creme-suave);
+        margin-bottom: 24px;
+      }
+      .etapas {
+        display: flex;
+        flex-direction: column;
+        gap: 0;
+      }
+      .etapa {
+        display: flex;
+        gap: 14px;
+        position: relative;
+        padding-bottom: 28px;
+      }
+      .etapa:last-child {
+        padding-bottom: 0;
+      }
+      .etapa::before {
+        content: "";
+        position: absolute;
+        left: 11px;
+        top: 26px;
+        bottom: 0;
+        width: 2px;
+        background: rgba(255, 244, 232, 0.12);
+      }
+      .etapa:last-child::before {
+        display: none;
+      }
+      .etapa.concluida::before {
+        background: var(--verde);
+      }
+      .bolinha {
+        flex-shrink: 0;
+        width: 24px;
+        height: 24px;
+        border-radius: 50%;
+        background: var(--carvao);
+        border: 2px solid rgba(255, 244, 232, 0.2);
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-size: 0.7rem;
+        z-index: 1;
+      }
+      .etapa.concluida .bolinha {
+        background: var(--verde);
+        border-color: var(--verde);
+      }
+      .etapa.atual .bolinha {
+        background: var(--brasa);
+        border-color: var(--brasa);
+        box-shadow: 0 0 0 4px rgba(255, 107, 53, 0.2);
+      }
+      .etapa-texto h3 {
+        font-size: 0.95rem;
+        font-weight: 600;
+        color: var(--creme-suave);
+      }
+      .etapa.concluida .etapa-texto h3,
+      .etapa.atual .etapa-texto h3 {
+        color: var(--creme);
+      }
+      .etapa-texto p {
+        font-size: 0.78rem;
+        color: rgba(216, 199, 186, 0.6);
+        margin-top: 2px;
+      }
+      .resumo-itens {
+        margin-top: 4px;
+      }
+      .resumo-itens .linha {
+        display: flex;
+        justify-content: space-between;
+        font-size: 0.88rem;
+        padding: 6px 0;
+        border-bottom: 1px solid rgba(255, 244, 232, 0.06);
+      }
+      .resumo-itens .subtotal {
+        display: flex;
+        justify-content: space-between;
+        font-weight: 700;
+        font-size: 1rem;
+        padding-top: 12px;
+      }
+      .btn-whatsapp {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        gap: 8px;
+        width: 100%;
+        background: transparent;
+        border: 1px solid rgba(255, 244, 232, 0.15);
+        color: var(--creme);
+        text-decoration: none;
+        font-weight: 600;
+        font-size: 0.92rem;
+        padding: 14px;
+        border-radius: 999px;
+      }
+      .estado-vazio,
+      .estado-erro {
+        text-align: center;
+        padding: 60px 20px;
+        color: var(--creme-suave);
+      }
+    </style>
+  </head>
+  <body>
+    <div class="topo">
+      <a href="/" class="logo">Brasas <span>Burger</span></a>
+    </div>
+    <main>
+      <div id="conteudo">
+        <p class="estado-vazio">Carregando pedido...</p>
+      </div>
+    </main>
+
+    <script src="https://www.gstatic.com/firebasejs/10.13.1/firebase-app-compat.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/10.13.1/firebase-firestore-compat.js"></script>
+    <script>
+      const firebaseConfig = {
+        apiKey: "AIzaSyAD71P1qy1SngP5TJIknJtNSS-S1bvC-LE",
+        authDomain: "brasas-burguer-pjt.firebaseapp.com",
+        projectId: "brasas-burguer-pjt",
+        storageBucket: "brasas-burguer-pjt.firebasestorage.app",
+        messagingSenderId: "812502254666",
+        appId: "1:812502254666:web:d6f53f291e4776098d92b3",
+      };
+      firebase.initializeApp(firebaseConfig);
+      const db = firebase.firestore();
+
+      // Número público da loja (não confundir com a API key do CallMeBot,
+      // que é secreta e fica só nas variáveis de ambiente do servidor).
+      const NUMERO_WHATSAPP_LOJA = "5599981502997";
+
+      const ETAPAS = [
+        { chave: "Recebido", titulo: "Pedido recebido", desc: "Confirmamos seu pedido." },
+        { chave: "Preparando", titulo: "Preparando", desc: "Seu pedido está sendo feito na brasa." },
+        { chave: "Saiu para entrega", titulo: "Saiu para entrega", desc: "A caminho do seu endereço." },
+        { chave: "Entregue", titulo: "Entregue", desc: "Bom apetite! 🍔" },
+      ];
+
+      function formatarPreco(v) {
+        return (Number(v) || 0).toLocaleString("pt-BR", {
+          style: "currency",
+          currency: "BRL",
+        });
+      }
+
+      function renderizarPedido(pedido) {
+        const indiceAtual = ETAPAS.findIndex((e) => e.chave === pedido.status);
+        const idxSeguro = indiceAtual === -1 ? 0 : indiceAtual;
+
+        const etapasHtml = ETAPAS.map((etapa, i) => {
+          let classe = "";
+          if (i < idxSeguro) classe = "concluida";
+          else if (i === idxSeguro) classe = "atual";
+          const icone = i < idxSeguro ? "✓" : i === idxSeguro ? "●" : "";
+          return `
+            <div class="etapa ${classe}">
+              <div class="bolinha">${icone}</div>
+              <div class="etapa-texto">
+                <h3>${etapa.titulo}</h3>
+                <p>${etapa.desc}</p>
+              </div>
+            </div>`;
+        }).join("");
+
+        const itensHtml = (pedido.itens || [])
+          .map(
+            (item) =>
+              `<div class="linha"><span>${item.qtd}x ${item.titulo}</span><span>${formatarPreco(item.preco * item.qtd)}</span></div>`,
+          )
+          .join("");
+
+        document.getElementById("conteudo").innerHTML = `
+          <div class="cartao">
+            <h1>Seu pedido</h1>
+            <p class="id-pedido">Pedido #${pedido.idCurto}</p>
+            <div class="etapas">${etapasHtml}</div>
+          </div>
+          <div class="cartao">
+            <div class="resumo-itens">
+              ${itensHtml}
+              <div class="subtotal"><span>Subtotal</span><span>${formatarPreco(pedido.subtotal)}</span></div>
+            </div>
+          </div>
+          <a class="btn-whatsapp" href="https://wa.me/${NUMERO_WHATSAPP_LOJA}" target="_blank" rel="noopener">
+            💬 Falar com a loja
+          </a>
+        `;
+      }
+
+      function iniciar() {
+        const params = new URLSearchParams(window.location.search);
+        const id = params.get("id");
+
+        if (!id) {
+          document.getElementById("conteudo").innerHTML =
+            '<p class="estado-erro">Nenhum pedido informado. Volte ao cardápio e finalize um pedido para gerar seu link de acompanhamento.</p>';
+          return;
+        }
+
+        db.collection("pedidos")
+          .doc(id)
+          .onSnapshot(
+            (doc) => {
+              if (!doc.exists) {
+                document.getElementById("conteudo").innerHTML =
+                  '<p class="estado-erro">Pedido não encontrado. Confira se o link está correto.</p>';
+                return;
+              }
+              const pedido = doc.data();
+              pedido.idCurto = id.slice(0, 6).toUpperCase();
+              renderizarPedido(pedido);
+            },
+            (erro) => {
+              console.error(erro);
+              document.getElementById("conteudo").innerHTML =
+                '<p class="estado-erro">Não foi possível carregar o pedido agora.</p>';
+            },
+          );
+      }
+
+      iniciar();
+    </script>
+  </body>
+</html>
