@@ -883,9 +883,9 @@
         document.getElementById("gavetaCarrinho").classList.remove("aberto");
       }
 
-      // Finaliza o pedido enviando direto pro backend (Netlify Function),
-      // que dispara pro WhatsApp da loja via CallMeBot.
-      // O cliente não vê nem edita o texto que chega no WhatsApp.
+      // Finaliza o pedido: salva no Firestore com status "Recebido",
+      // dispara a notificação pra loja via Netlify Function, e leva
+      // o cliente pra tela de acompanhamento em tempo real.
       document
         .getElementById("btnFinalizar")
         .addEventListener("click", async () => {
@@ -905,16 +905,27 @@
 
           const endereco = document.getElementById("campoEndereco").value.trim();
           const pagamento = document.getElementById("campoPagamento").value;
+          const subtotal = calcularSubtotal();
 
           try {
+            const docRef = await db.collection("pedidos").add({
+              itens: itensPayload,
+              subtotal,
+              endereco,
+              pagamento,
+              status: "Recebido",
+              criadoEm: firebase.firestore.FieldValue.serverTimestamp(),
+            });
+
             const resposta = await fetch("/.netlify/functions/enviar-pedido", {
               method: "POST",
               headers: { "Content-Type": "application/json" },
               body: JSON.stringify({
                 itens: itensPayload,
-                subtotal: calcularSubtotal(),
+                subtotal,
                 endereco,
                 pagamento,
+                pedidoId: docRef.id,
               }),
             });
 
@@ -928,10 +939,11 @@
             fecharCarrinho();
             document.getElementById("campoEndereco").value = "";
             document.getElementById("campoPagamento").value = "";
-            alert("Pedido enviado com sucesso! Em breve entraremos em contato. 🍔");
+
+            window.location.href = `pedido.html?id=${docRef.id}`;
           } catch (erro) {
+            console.error(erro);
             alert("Não foi possível enviar o pedido. Tente novamente em instantes.");
-          } finally {
             btn.disabled = false;
             btn.textContent = textoOriginal;
           }
