@@ -655,6 +655,14 @@
       </div>
       <div class="gaveta-campos">
         <div>
+          <label for="campoNome">Seu nome</label>
+          <input
+            type="text"
+            id="campoNome"
+            placeholder="Como podemos te chamar?"
+          />
+        </div>
+        <div>
           <label for="campoEndereco">Endereço de entrega</label>
           <input
             type="text"
@@ -903,12 +911,21 @@
             qtd: item.qtd,
           }));
 
+          const nome = document.getElementById("campoNome").value.trim();
           const endereco = document.getElementById("campoEndereco").value.trim();
           const pagamento = document.getElementById("campoPagamento").value;
           const subtotal = calcularSubtotal();
 
+          if (!nome) {
+            alert("Por favor, preencha seu nome antes de finalizar o pedido.");
+            btn.disabled = false;
+            btn.textContent = textoOriginal;
+            return;
+          }
+
           try {
             const docRef = await db.collection("pedidos").add({
+              nome,
               itens: itensPayload,
               subtotal,
               endereco,
@@ -921,6 +938,7 @@
               method: "POST",
               headers: { "Content-Type": "application/json" },
               body: JSON.stringify({
+                nome,
                 itens: itensPayload,
                 subtotal,
                 endereco,
@@ -937,6 +955,7 @@
             renderizarCardapio();
             atualizarUiCarrinho();
             fecharCarrinho();
+            document.getElementById("campoNome").value = "";
             document.getElementById("campoEndereco").value = "";
             document.getElementById("campoPagamento").value = "";
 
