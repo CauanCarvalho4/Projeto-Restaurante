@@ -25,7 +25,9 @@ exports.handler = async (event) => {
   }
 
   try {
-    const { itens, subtotal, endereco, pagamento, pedidoId } = JSON.parse(event.body);
+    const { nome, itens, subtotal, endereco, pagamento, pedidoId } = JSON.parse(
+      event.body,
+    );
 
     if (!itens || !Array.isArray(itens) || itens.length === 0) {
       return {
@@ -37,6 +39,7 @@ exports.handler = async (event) => {
     const idCurto = pedidoId ? pedidoId.slice(0, 6).toUpperCase() : "N/A";
 
     let msg = `🍔 NOVO PEDIDO #${idCurto} - Brasas Burger\n\n`;
+    msg += `Cliente: ${nome || "não informado"}\n\n`;
     itens.forEach((item) => {
       const totalItem = (item.preco * item.qtd).toLocaleString("pt-BR", {
         style: "currency",
