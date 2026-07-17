@@ -826,7 +826,7 @@
               <div class="pedido-card">
                 <div class="pedido-topo">
                   <div>
-                    <span class="pedido-id">Pedido #${idCurto}</span>
+                    <span class="pedido-id">${data.nome || "Cliente"} · #${idCurto}</span>
                     <span class="pedido-hora"> · ${formatarHora(data.criadoEm)}</span>
                   </div>
                   <span class="pedido-badge ${badgeClasse}">${status}</span>
