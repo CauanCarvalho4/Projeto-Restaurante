@@ -355,6 +355,80 @@
       #toast.show {
         opacity: 1;
       }
+      /* ===== Pedidos ===== */
+      .lista-pedidos {
+        display: flex;
+        flex-direction: column;
+        gap: 12px;
+      }
+      .pedido-card {
+        background: var(--carvao-claro);
+        border: 1px solid rgba(255, 244, 232, 0.08);
+        border-radius: var(--raio);
+        padding: 16px 18px;
+      }
+      .pedido-topo {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        gap: 10px;
+        margin-bottom: 10px;
+        flex-wrap: wrap;
+      }
+      .pedido-id {
+        font-weight: 700;
+        font-size: 14px;
+      }
+      .pedido-hora {
+        font-size: 12px;
+        color: var(--creme-suave);
+      }
+      .pedido-badge {
+        font-size: 11px;
+        font-weight: 700;
+        text-transform: uppercase;
+        letter-spacing: 0.04em;
+        padding: 4px 10px;
+        border-radius: 999px;
+        background: rgba(255, 107, 53, 0.15);
+        color: var(--brasa-clara);
+      }
+      .pedido-badge.entregue {
+        background: rgba(76, 175, 111, 0.15);
+        color: #4caf6f;
+      }
+      .pedido-itens {
+        font-size: 13px;
+        color: var(--creme-suave);
+        margin-bottom: 8px;
+      }
+      .pedido-itens div {
+        display: flex;
+        justify-content: space-between;
+        padding: 3px 0;
+      }
+      .pedido-info {
+        font-size: 12.5px;
+        color: var(--creme-suave);
+        margin-bottom: 12px;
+        line-height: 1.5;
+      }
+      .pedido-rodape {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        gap: 10px;
+        flex-wrap: wrap;
+      }
+      .pedido-subtotal {
+        font-weight: 700;
+        color: var(--crosta);
+      }
+      .pedido-status-select {
+        max-width: 220px;
+        padding: 8px 12px;
+        font-size: 13px;
+      }
     </style>
   </head>
   <body>
@@ -398,11 +472,25 @@
           <button class="logout-btn" id="logout-btn">Sair</button>
         </div>
         <nav class="tabs">
-          <button data-tab="produtos" class="active">Cardápio</button>
+          <button data-tab="pedidos" class="active">Pedidos</button>
+          <button data-tab="produtos">Cardápio</button>
           <button data-tab="config">Configurações</button>
         </nav>
         <main>
-          <section id="tab-produtos" class="tab-content">
+          <section id="tab-pedidos" class="tab-content">
+            <div class="page-head">
+              <div>
+                <div class="eyebrow">Em tempo real</div>
+                <h2>Pedidos</h2>
+              </div>
+            </div>
+            <div class="lista-pedidos" id="pedidos-lista"></div>
+            <div id="pedidos-empty" class="empty-state" style="display: none">
+              <span class="icone">🧾</span>
+              Nenhum pedido recebido ainda.
+            </div>
+          </section>
+          <section id="tab-produtos" class="tab-content" style="display: none">
             <div class="page-head">
               <div>
                 <div class="eyebrow">Aparece no site</div>
@@ -605,6 +693,14 @@
         { id: "preco", label: "Preço (R$)", type: "number", required: true },
       ];
 
+      const STATUS_PEDIDO = [
+        "Recebido",
+        "Preparando",
+        "Saiu para entrega",
+        "Entregue",
+        "Cancelado",
+      ];
+
       let produtosCache = [];
       let editState = null;
 
@@ -633,6 +729,7 @@
           .getElementById("produtos-search")
           .addEventListener("input", renderProdutos);
         carregarConfig();
+        initPedidos();
       }
 
       function renderProdutos() {
@@ -689,6 +786,104 @@
 
           lista.appendChild(div);
         });
+      }
+
+      // ===== PEDIDOS =====
+      function formatarHora(timestamp) {
+        if (!timestamp || !timestamp.toDate) return "";
+        return timestamp.toDate().toLocaleString("pt-BR", {
+          day: "2-digit",
+          month: "2-digit",
+          hour: "2-digit",
+          minute: "2-digit",
+        });
+      }
+
+      function renderPedidos(pedidos) {
+        const lista = document.getElementById("pedidos-lista");
+        const empty = document.getElementById("pedidos-empty");
+
+        if (pedidos.length === 0) {
+          lista.innerHTML = "";
+          empty.style.display = "block";
+          return;
+        }
+        empty.style.display = "none";
+
+        lista.innerHTML = pedidos
+          .map(({ id, data }) => {
+            const idCurto = id.slice(0, 6).toUpperCase();
+            const itensHtml = (data.itens || [])
+              .map(
+                (item) =>
+                  `<div><span>${item.qtd}x ${item.titulo}</span><span>${fmtMoney(item.preco * item.qtd)}</span></div>`,
+              )
+              .join("");
+            const status = data.status || "Recebido";
+            const badgeClasse = status === "Entregue" ? "entregue" : "";
+
+            return `
+              <div class="pedido-card">
+                <div class="pedido-topo">
+                  <div>
+                    <span class="pedido-id">Pedido #${idCurto}</span>
+                    <span class="pedido-hora"> · ${formatarHora(data.criadoEm)}</span>
+                  </div>
+                  <span class="pedido-badge ${badgeClasse}">${status}</span>
+                </div>
+                <div class="pedido-itens">${itensHtml}</div>
+                <div class="pedido-info">
+                  📍 ${data.endereco || "Endereço não informado"}<br>
+                  💳 ${data.pagamento || "Pagamento não informado"}
+                </div>
+                <div class="pedido-rodape">
+                  <span class="pedido-subtotal">${fmtMoney(data.subtotal)}</span>
+                  <select class="pedido-status-select" data-status-id="${id}">
+                    ${STATUS_PEDIDO.map(
+                      (s) =>
+                        `<option value="${s}" ${s === status ? "selected" : ""}>${s}</option>`,
+                    ).join("")}
+                  </select>
+                </div>
+              </div>`;
+          })
+          .join("");
+      }
+
+      function initPedidos() {
+        db.collection("pedidos")
+          .orderBy("criadoEm", "desc")
+          .onSnapshot(
+            (snap) => {
+              const pedidos = snap.docs.map((doc) => ({
+                id: doc.id,
+                data: doc.data(),
+              }));
+              renderPedidos(pedidos);
+            },
+            (erro) => {
+              console.error("Erro ao carregar pedidos:", erro);
+              showToast("Erro ao carregar pedidos.");
+            },
+          );
+
+        document
+          .getElementById("pedidos-lista")
+          .addEventListener("change", async (e) => {
+            const select = e.target.closest("[data-status-id]");
+            if (!select) return;
+            const id = select.dataset.statusId;
+            try {
+              await db.collection("pedidos").doc(id).update({
+                status: select.value,
+                atualizadoEm: firebase.firestore.FieldValue.serverTimestamp(),
+              });
+              showToast("Status atualizado!");
+            } catch (err) {
+              console.error(err);
+              showToast("Erro ao atualizar status.");
+            }
+          });
       }
 
       const overlay = document.getElementById("overlay");
